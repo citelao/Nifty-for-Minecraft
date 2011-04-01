@@ -65,8 +65,34 @@ if [ ! -f craftbukkit.jar ]; then  #setup, because if craftbukkit doesn't exist,
 	    touch banned-ips.txt
 	    touch white-list.txt
     
+	nf_options_generate() {
+		#write to
+		    #config.cfg
+			echo "#This file stores settings changeable through Launcher.command. You can edit here if you want, but be careful." > config.cfg
+			echo "gui=crafty" >> config.cfg
+		    #plugins.cfg
+			echo "#This file is executed during initial setup and updates to tell Nifty what actions to do to what plugins." > plugins.cfg
+			echo "#You can edit here if you want, but be careful. I suggest a familiarity with shell. Look to the following lines for guidance" >> plugins.cfg
+			echo "" >> plugins.cfg
+			echo "" >> plugins.cfg
+			echo "#ESSENTIALS by Earth2Me <earth2me.com/>" >> plugins.cfg
+			echo "	curl -O --progress-bar http://earth2me.net:8002/guestAuth/repository/download/bt3/.lastSuccessful/Essentials.zip" >> plugins.cfg
+			echo "	unzip -j -qq Essentials.zip -d plugins" >> plugins.cfg
+			echo "	rm Essentials.zip" >> plugins.cfg
+			echo "" >> plugins.cfg
+			echo "" >> plugins.cfg
+			echo "#WORLDEDIT by sk89q <sk89q.com/>" >> plugins.cfg
+			echo "#NOTE: Due to an error I have been receiving while using this, I am disabing for now 3/31/10 -- Citelao" >> plugins.cfg
+			echo "#	curl -O --progress-bar https://github.com/downloads/sk89q/worldedit/worldedit-4.2.zip" >> plugins.cfg
+			echo "#	unzip -j -qq worldedit-4.2.zip -d plugins" >> plugins.cfg
+			echo "#	rm plugins/CHANGELOG.txt" >> plugins.cfg
+			echo "#	rm plugins/LICENSE.txt" >> plugins.cfg
+			echo "#	rm plugins/NOTICE.txt" >> plugins.cfg
+			echo "#	rm plugins/README.txt" >> plugins.cfg
+	    }
+
     #write to files
-	nf_options_generate
+	nf_generate
     #download
 	#craftbukkit.jar
 	    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/lastSuccessfulBuild/artifact/target/craftbukkit-0.0.1-SNAPSHOT.jar
@@ -247,7 +273,7 @@ fi
 	    #elif [ $action == 2 ]; then #plugins
 	    #	nf_options_plugins
             elif [ $option == 2 ]; then #regenerate
-		nf_options_generate
+		nf_generate
 	    fi
 
 	}
@@ -315,32 +341,6 @@ fi
 	    #nf_options_plugins() {
 		#TODO
 	    #}
-	    
-	    nf_options_generate() {
-		#write to
-		    #config.cfg
-			echo "#This file stores settings changeable through Launcher.command. You can edit here if you want, but be careful." > config.cfg
-			echo "gui=crafty" >> config.cfg
-		    #plugins.cfg
-			echo "#This file is executed during initial setup and updates to tell Nifty what actions to do to what plugins." > plugins.cfg
-			echo "#You can edit here if you want, but be careful. I suggest a familiarity with shell. Look to the following lines for guidance" >> plugins.cfg
-			echo "" >> plugins.cfg
-			echo "" >> plugins.cfg
-			echo "#ESSENTIALS by Earth2Me <earth2me.com/>" >> plugins.cfg
-			echo "	curl -O --progress-bar http://earth2me.net:8002/guestAuth/repository/download/bt3/.lastSuccessful/Essentials.zip" >> plugins.cfg
-			echo "	unzip -j -qq Essentials.zip -d plugins" >> plugins.cfg
-			echo "	rm Essentials.zip" >> plugins.cfg
-			echo "" >> plugins.cfg
-			echo "" >> plugins.cfg
-			echo "#WORLDEDIT by sk89q <sk89q.com/>" >> plugins.cfg
-			echo "#NOTE: Due to an error I have been receiving while using this, I am disabing for now 3/31/10 -- Citelao" >> plugins.cfg
-			echo "#	curl -O --progress-bar https://github.com/downloads/sk89q/worldedit/worldedit-4.2.zip" >> plugins.cfg
-			echo "#	unzip -j -qq worldedit-4.2.zip -d plugins" >> plugins.cfg
-			echo "#	rm plugins/CHANGELOG.txt" >> plugins.cfg
-			echo "#	rm plugins/LICENSE.txt" >> plugins.cfg
-			echo "#	rm plugins/NOTICE.txt" >> plugins.cfg
-			echo "#	rm plugins/README.txt" >> plugins.cfg
-	    }
 
 # 4. Server init
     nf_launch_server() {
