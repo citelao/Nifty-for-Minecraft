@@ -13,6 +13,14 @@
 		841E99D41483115100A27E1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D21483115100A27E1F /* Credits.rtf */; };
 		841E99D71483115100A27E1F /* NiftyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99D61483115100A27E1F /* NiftyAppDelegate.m */; };
 		841E99DA1483115100A27E1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D81483115100A27E1F /* MainMenu.xib */; };
+		841E99E2148313F200A27E1F /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99E1148313F200A27E1F /* AppController.m */; };
+		841E99E41483147000A27E1F /* minecraft_server.jar in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E31483147000A27E1F /* minecraft_server.jar */; };
+		841E99EC148318CD00A27E1F /* banned-ips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E6148317D800A27E1F /* banned-ips.txt */; };
+		841E99ED148318CD00A27E1F /* banned-players.txt in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E7148317D800A27E1F /* banned-players.txt */; };
+		841E99EE148318CD00A27E1F /* ops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E8148317D800A27E1F /* ops.txt */; };
+		841E99EF148318CD00A27E1F /* server.log in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E9148317D800A27E1F /* server.log */; };
+		841E99F0148318CD00A27E1F /* server.properties in Resources */ = {isa = PBXBuildFile; fileRef = 841E99EA148317D800A27E1F /* server.properties */; };
+		841E99F1148318CD00A27E1F /* white-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 841E99EB148317D800A27E1F /* white-list.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +29,23 @@
 		841E99C61483115100A27E1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		841E99C71483115100A27E1F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		841E99C81483115100A27E1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		841E99CB1483115100A27E1F /* Nifty-Info.plist */ = {isa = PBXFileReference; path = "Nifty-Info.plist"; sourceTree = "<group>"; };
+		841E99CB1483115100A27E1F /* Nifty-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Nifty-Info.plist"; sourceTree = "<group>"; };
 		841E99CD1483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		841E99CF1483115100A27E1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		841E99D11483115100A27E1F /* Nifty-Prefix.pch */ = {isa = PBXFileReference; path = "Nifty-Prefix.pch"; sourceTree = "<group>"; };
+		841E99D11483115100A27E1F /* Nifty-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nifty-Prefix.pch"; sourceTree = "<group>"; };
 		841E99D31483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		841E99D51483115100A27E1F /* NiftyAppDelegate.h */ = {isa = PBXFileReference; path = NiftyAppDelegate.h; sourceTree = "<group>"; };
+		841E99D51483115100A27E1F /* NiftyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NiftyAppDelegate.h; sourceTree = "<group>"; };
 		841E99D61483115100A27E1F /* NiftyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NiftyAppDelegate.m; sourceTree = "<group>"; };
 		841E99D91483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		841E99E0148313F200A27E1F /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		841E99E1148313F200A27E1F /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		841E99E31483147000A27E1F /* minecraft_server.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = minecraft_server.jar; sourceTree = "<group>"; };
+		841E99E6148317D800A27E1F /* banned-ips.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "banned-ips.txt"; path = "../server_files/banned-ips.txt"; sourceTree = "<group>"; };
+		841E99E7148317D800A27E1F /* banned-players.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "banned-players.txt"; path = "../server_files/banned-players.txt"; sourceTree = "<group>"; };
+		841E99E8148317D800A27E1F /* ops.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = ops.txt; path = ../server_files/ops.txt; sourceTree = "<group>"; };
+		841E99E9148317D800A27E1F /* server.log */ = {isa = PBXFileReference; lastKnownFileType = text; name = server.log; path = ../server_files/server.log; sourceTree = "<group>"; };
+		841E99EA148317D800A27E1F /* server.properties */ = {isa = PBXFileReference; lastKnownFileType = text; name = server.properties; path = ../server_files/server.properties; sourceTree = "<group>"; };
+		841E99EB148317D800A27E1F /* white-list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "white-list.txt"; path = "../server_files/white-list.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +102,8 @@
 				841E99D51483115100A27E1F /* NiftyAppDelegate.h */,
 				841E99D61483115100A27E1F /* NiftyAppDelegate.m */,
 				841E99D81483115100A27E1F /* MainMenu.xib */,
+				841E99E0148313F200A27E1F /* AppController.h */,
+				841E99E1148313F200A27E1F /* AppController.m */,
 				841E99CA1483115100A27E1F /* Supporting Files */,
 			);
 			path = Nifty;
@@ -93,6 +112,13 @@
 		841E99CA1483115100A27E1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				841E99E6148317D800A27E1F /* banned-ips.txt */,
+				841E99E7148317D800A27E1F /* banned-players.txt */,
+				841E99E8148317D800A27E1F /* ops.txt */,
+				841E99E9148317D800A27E1F /* server.log */,
+				841E99EA148317D800A27E1F /* server.properties */,
+				841E99EB148317D800A27E1F /* white-list.txt */,
+				841E99E31483147000A27E1F /* minecraft_server.jar */,
 				841E99CB1483115100A27E1F /* Nifty-Info.plist */,
 				841E99CC1483115100A27E1F /* InfoPlist.strings */,
 				841E99CF1483115100A27E1F /* main.m */,
@@ -149,9 +175,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841E99E41483147000A27E1F /* minecraft_server.jar in Resources */,
 				841E99CE1483115100A27E1F /* InfoPlist.strings in Resources */,
 				841E99D41483115100A27E1F /* Credits.rtf in Resources */,
 				841E99DA1483115100A27E1F /* MainMenu.xib in Resources */,
+				841E99EC148318CD00A27E1F /* banned-ips.txt in Resources */,
+				841E99ED148318CD00A27E1F /* banned-players.txt in Resources */,
+				841E99EE148318CD00A27E1F /* ops.txt in Resources */,
+				841E99EF148318CD00A27E1F /* server.log in Resources */,
+				841E99F0148318CD00A27E1F /* server.properties in Resources */,
+				841E99F1148318CD00A27E1F /* white-list.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +197,7 @@
 			files = (
 				841E99D01483115100A27E1F /* main.m in Sources */,
 				841E99D71483115100A27E1F /* NiftyAppDelegate.m in Sources */,
+				841E99E2148313F200A27E1F /* AppController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
