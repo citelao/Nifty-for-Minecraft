@@ -19,34 +19,48 @@
         stdi = [stdiPipe fileHandleForWriting];
         NSPipe *stdoPipe = [[NSPipe alloc] init];
         stdo = [stdoPipe fileHandleForReading];
-        NSArray *args = [NSArray arrayWithObjects:@"-Xms1024M",
-                            @"-Xmx1024M",
-                            @"-jar",
-                            @"minecraft_server.jar",
-                            @"nogui",
-                            nil];
+        NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
+                         @"-Xmx1024M",
+                         @"-jar",
+                         @"minecraft_server.jar",
+                         @"nogui",
+                         nil];
         
         [server setLaunchPath:@"/usr/bin/java"];
         [server setCurrentDirectoryPath:@"Nifty.app/Contents/Resources/"];
         [server setArguments:args];
         [server setStandardOutput:stdoPipe];
         [server setStandardInput:stdiPipe];
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(handleCommandOutput:) 
+                                                     name: NSFileHandleReadCompletionNotification 
+                                                   object: stdo];
+        [stdo readInBackgroundAndNotify];
         [server launch];
+        
+        
     }
     
     return self;
 }
 
-- (void)handleCommandOutput:(id)sender 
+- (void)handleCommandOutput: (NSNotification *)aNotification
 {
-    NSLog(@"MOO");
+    NSLog(@"Notification: %@", aNotification);
+    
 }
 
--(IBAction)handleCommandInput:(id)sender
+- (IBAction)handleCommandInput: (id)sender
 {
-    NSLog(@"Sending '%@'", [commandInput stringValue]);
-    [stdi writeData:[[commandInput stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+    [self handleCommandInput:sender 
+                   withInput:[sender stringValue]];
+}
+
+- (void)handleCommandInput: (id)sender withInput: (NSString *)data 
+{
+    NSLog(@"Sending '%@'", data);
+    [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
     [stdi writeData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 }
-    
+
 @end

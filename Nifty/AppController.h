@@ -17,7 +17,8 @@
     NSFileHandle *stdo;
 }
 
--(void)handleCommandOutput:(id)sender;
--(IBAction)handleCommandInput:(id)sender;
+- (void)handleCommandOutput: (NSNotification *)aNotification;
+- (IBAction)handleCommandInput: (id)sender;
+- (void)handleCommandInput: (id)sender withInput: (NSString *)data;
 
 @end
