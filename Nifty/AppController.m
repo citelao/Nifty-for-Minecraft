@@ -15,18 +15,22 @@
     self = [super init];
     if (self) {
         server = [[NSTask alloc] init];
-        pipe = [NSPipe pipe];
+        NSPipe *stdiPipe = [[NSPipe alloc] init];
+        stdi = [stdiPipe fileHandleForWriting];
+        NSPipe *stdoPipe = [[NSPipe alloc] init];
+        stdo = [stdoPipe fileHandleForReading];
         NSArray *args = [NSArray arrayWithObjects:@"-Xms1024M",
                             @"-Xmx1024M",
                             @"-jar",
                             @"minecraft_server.jar",
+                            @"nogui",
                             nil];
         
         [server setLaunchPath:@"/usr/bin/java"];
         [server setCurrentDirectoryPath:@"Nifty.app/Contents/Resources/"];
         [server setArguments:args];
-        [server setStandardOutput:pipe];
-        [server setStandardInput:pipe];
+        [server setStandardOutput:stdoPipe];
+        [server setStandardInput:stdiPipe];
         [server launch];
     }
     
@@ -36,6 +40,13 @@
 - (void)handleCommandOutput:(id)sender 
 {
     NSLog(@"MOO");
+}
+
+-(IBAction)handleCommandInput:(id)sender
+{
+    NSLog(@"Sending '%@'", [commandInput stringValue]);
+    [stdi writeData:[[commandInput stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+    [stdi writeData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 }
     
 @end

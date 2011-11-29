@@ -13,9 +13,11 @@
     IBOutlet NSTextField *commandInput;
     IBOutlet NSTextView *debugCommandOutput;
     NSTask *server;
-    NSPipe *pipe;
+    NSFileHandle *stdi;
+    NSFileHandle *stdo;
 }
 
 -(void)handleCommandOutput:(id)sender;
+-(IBAction)handleCommandInput:(id)sender;
 
 @end
