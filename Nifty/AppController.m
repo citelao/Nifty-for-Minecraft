@@ -31,11 +31,13 @@
         [server setArguments:args];
         [server setStandardOutput:stdoPipe];
         [server setStandardInput:stdiPipe];
+		[server setStandardError:stdoPipe];
+		
+		[stdo waitForDataInBackgroundAndNotify];
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(handleCommandOutput:) 
-                                                     name: NSFileHandleReadCompletionNotification 
-                                                   object: stdo];
-        [stdo readInBackgroundAndNotify];
+													 name:NSFileHandleDataAvailableNotification 
+                                                   object:stdo];
         [server launch];
         
         
@@ -46,14 +48,24 @@
 
 - (void)handleCommandOutput: (NSNotification *)aNotification
 {
-    NSLog(@"Notification: %@", aNotification);
-    
+	if([server isRunning] == YES) {
+		NSFileHandle *fh = [aNotification object];
+		NSData *data = [fh availableData];
+		NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+		[fh waitForDataInBackgroundAndNotify];
+		NSLog(@"Notification: %@",str);
+		[[[debugCommandOutput textStorage] mutableString] appendString: str];
+	} else {
+		NSLog(@"Server stopped.");
+	}
+	
 }
 
 - (IBAction)handleCommandInput: (id)sender
 {
     [self handleCommandInput:sender 
                    withInput:[sender stringValue]];
+	[sender setStringValue:@""];
 }
 
 - (void)handleCommandInput: (id)sender withInput: (NSString *)data 
