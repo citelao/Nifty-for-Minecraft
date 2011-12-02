@@ -870,7 +870,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 										<object class="NSCollectionView" id="470721803">
 											<reference key="NSNextResponder" ref="394605488"/>
 											<int key="NSvFlags">274</int>
-											<string key="NSFrameSize">{336, 410}</string>
+											<string key="NSFrameSize">{351, 410}</string>
 											<reference key="NSSuperview" ref="394605488"/>
 											<string key="NSMinGridSize">{0, 0}</string>
 											<string key="NSMaxGridSize">{0, 0}</string>
@@ -884,7 +884,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 											<int key="NSDraggingSourceMaskForNonLocal">0</int>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 1}, {336, 410}}</string>
+									<string key="NSFrame">{{1, 1}, {351, 410}}</string>
 									<reference key="NSSuperview" ref="336534323"/>
 									<reference key="NSNextKeyView" ref="470721803"/>
 									<reference key="NSDocView" ref="470721803"/>
@@ -893,7 +893,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								</object>
 								<object class="NSScroller" id="562297466">
 									<reference key="NSNextResponder" ref="336534323"/>
-									<int key="NSvFlags">256</int>
+									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{337, 1}, {15, 410}}</string>
 									<reference key="NSSuperview" ref="336534323"/>
 									<reference key="NSTarget" ref="336534323"/>
@@ -915,7 +915,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string key="NSFrame">{{20, 40}, {353, 412}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="394605488"/>
-							<int key="NSsFlags">18</int>
+							<int key="NSsFlags">530</int>
 							<reference key="NSVScroller" ref="562297466"/>
 							<reference key="NSHScroller" ref="10882544"/>
 							<reference key="NSContentView" ref="394605488"/>
@@ -923,7 +923,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					</object>
 					<string key="NSFrameSize">{629, 472}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSNextKeyView"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
