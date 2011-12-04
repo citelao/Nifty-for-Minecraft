@@ -11,5 +11,5 @@ server.log
 server.log.lck
 server.properties
 white-list.txt
-world-bukkit*
-world-vanilla*
+world*
+plugins*

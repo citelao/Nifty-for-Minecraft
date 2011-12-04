@@ -12,7 +12,7 @@
 cd -P -- "$(dirname -- "$0")" && pwd -P
 clear
 echo "\033[1m###########################################"
-echo "# Nifty v 1.1"
+echo "# Nifty v 1.1.6"
 echo "# by Citelao"
 echo "#"
 echo "# with auto-update, backup, and Essentials"
@@ -73,13 +73,13 @@ if [ ! -f craftbukkit.jar ]; then  #setup, because if craftbukkit doesn't exist,
 		    echo "" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "#ESSENTIALS by Earth2Me <earth2me.com/>" >> plugins.cfg
-		    echo "	curl -O --progress-bar http://earth2me.net:8002/guestAuth/repository/download/bt3/.lastSuccessful/Essentials.zip" >> plugins.cfg
-		    echo "	unzip -j -qq Essentials.zip -d plugins" >> plugins.cfg
-		    echo "	rm Essentials.zip" >> plugins.cfg
+		    echo "	curl -O --progress-bar http://cloud.github.com/downloads/essentials/Essentials/Essentials-2.6.5.zip" >> plugins.cfg
+		    echo "	unzip -j -qq Essentials-2.6.5.zip -d plugins" >> plugins.cfg
+		    echo "	rm Essentials-2.6.5.zip" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "#WORLDEDIT by sk89q <sk89q.com/>" >> plugins.cfg
-		    echo "#NOTE: Due to an error I have been receiving while using this, I am disabing for now 3/31/10 -- Citelao" >> plugins.cfg
+		    echo "#NOTE: incompatible with Minecraft 1.0.0 as of 12/3/2011" >> plugins.cfg
 		    echo "#	curl -O --progress-bar https://github.com/downloads/sk89q/worldedit/worldedit-4.2.zip" >> plugins.cfg
 		    echo "#	unzip -j -qq worldedit-4.2.zip -d plugins" >> plugins.cfg
 		    echo "#	rm plugins/CHANGELOG.txt" >> plugins.cfg
@@ -95,7 +95,7 @@ if [ ! -f craftbukkit.jar ]; then  #setup, because if craftbukkit doesn't exist,
 	    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/1465/artifact/target/craftbukkit-1.0.0-SNAPSHOT.jar
 	    mv craftbukkit-1.0.0-SNAPSHOT.jar craftbukkit.jar
 	#minecraft_server.jar
-	    curl -O --progress-bar http://www.minecraft.net/download/minecraft_server.jar
+	    curl -O --progress-bar https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar
 	#crafty (because it's so beast)
 	    #curl -O --progress-bar http://dl.dropbox.com/u/17925907/Minecraft/Crafty/Crafty-v0.7.zip
 	    #unzip -qq Crafty-v0.7.zip
