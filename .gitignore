@@ -13,3 +13,4 @@ server.properties
 white-list.txt
 world*
 plugins*
+minecraft_server.jar
