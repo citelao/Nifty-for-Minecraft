@@ -8,8 +8,6 @@
 #		2. No mention of me is removed from the source code.
 #		3. You share alike.
 
-#	NOTE: This program uses TimberJaw's Crafty, which is IS ABSOLUTELY NOT INCLUDED under this license.
-
 
 cd -P -- "$(dirname -- "$0")" && pwd -P
 clear
@@ -17,7 +15,6 @@ echo "\033[1m###########################################"
 echo "# Nifty v 1.1"
 echo "# by Citelao"
 echo "#"
-echo "# featuring TimberJaw's Crafty"
 echo "# with auto-update, backup, and Essentials"
 echo "###########################################"
 echo ""
