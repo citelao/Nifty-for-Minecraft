@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #	Nifty, a command-line launcher for CraftBukkit Minecraft Server
-#	Copyleft © 2011 Citelao
+#	Copyleft ï¿½ 2011 Citelao
 
 #	All modification, redistribution, and access is allowed so long as these three rules are followed:
 #		1. Credit for initial program stays with me, in source code.
@@ -69,15 +69,15 @@ if [ ! -f craftbukkit.jar ]; then  #setup, because if craftbukkit doesn't exist,
 	nf_options_generate
     #download
 	#craftbukkit.jar
-	    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/lastSuccessfulBuild/artifact/target/craftbukkit-0.0.1-SNAPSHOT.jar
-	    mv craftbukkit-0.0.1-SNAPSHOT.jar craftbukkit.jar
+        curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/1465/artifact/target/craftbukkit-1.0.0-SNAPSHOT.jar
+        mv craftbukkit-1.0.0-SNAPSHOT.jar craftbukkit.jar
 	#minecraft_server.jar
 	    curl -O --progress-bar http://www.minecraft.net/download/minecraft_server.jar
 	#crafty (because it's so beast)
-	    curl -O --progress-bar http://dl.dropbox.com/u/17925907/Minecraft/Crafty/Crafty-v0.7.zip
-	    unzip -qq Crafty-v0.7.zip
-	    rm crafty.bat
-	    rm Crafty-v0.7.zip
+        #curl -O --progress-bar http://dl.dropbox.com/u/17925907/Minecraft/Crafty/Crafty-v0.7.zip
+        #unzip -qq Crafty-v0.7.zip
+        #rm crafty.bat
+        #rm Crafty-v0.7.zip
 	#plugins
 	    . plugins.cfg #just executes plugins.cfg. Dandy, eh?
 fi
@@ -258,8 +258,8 @@ fi
 		echo "\033[1mWhich launcher would you like to use?\033[0m"
 		echo " 1  Vanilla"
 		echo " 2  Bukkit"
-		echo " 3  Crafty"
-		echo "[4] Don't change"
+        #echo " 3  Crafty"
+		echo "[3] Don't change"
 		echo ""
 		
 		read -p "Which launcher would you like to use? " launcher
@@ -268,8 +268,8 @@ fi
 		    nf_options_launcher_vanilla
 		elif [ $launcher == 2 ]; then #bukkit
 		    nf_options_launcher_bukkit
-		elif [ $launcher == 3 ]; then #crafty
-		    nf_options_launcher_crafty
+        #elif [ $launcher == 3 ]; then #crafty
+            #nf_options_launcher_crafty
 		fi
 	    }
 	    
@@ -320,7 +320,7 @@ fi
 		#write to
 		    #config.cfg
 			echo "#This file stores settings changeable through Launcher.command. You can edit here if you want, but be careful." > config.cfg
-			echo "gui=crafty" >> config.cfg
+			echo "gui=bukkit" >> config.cfg
 		    #plugins.cfg
 			echo "#This file is executed during initial setup and updates to tell Nifty what actions to do to what plugins." > plugins.cfg
 			echo "#You can edit here if you want, but be careful. I suggest a familiarity with shell. Look to the following lines for guidance" >> plugins.cfg
@@ -344,8 +344,8 @@ fi
 
 # 4. Server init
     nf_launch_server() {
-	if [ $gui == "crafty" ]; then #use crafty
-	    java -Xmx1024M -Xms1024M -jar crafty.jar -w world-bukkit    
+    #if [ $gui == "crafty" ]; then #use crafty
+        #java -Xmx1024M -Xms1024M -jar crafty.jar -w world-bukkit    
 	elif [ $gui == "bukkit" ]; then #use terminal bukkit
 	    java -Xmx1024M -Xms1024M -jar craftbukkit.jar -w world-bukkit
 	elif [ $gui == "vanilla" ]; then #use minecraft_server    
