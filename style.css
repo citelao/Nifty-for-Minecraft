@@ -72,10 +72,6 @@ h4 {
   margin: 2px;
   padding: 10px;
 }
-#download_links a:first-child {
-  border-right: 1px solid black;
-  padding-right: 15px;
-}
 .feature {
   clear: both;
   margin: 0 auto;
@@ -86,15 +82,22 @@ h4 {
 .feature img {
   float: left;
 }
+.feature:nth-child(even) img, .feature:nth-child(even) h4, .feature:nth-child(even) p {
+  float: right;
+}
+.feature:nth-child(even) .info {
+  text-align: right;
+}
 .feature .info {
   width: 370px;
   float: left;
 }
 .feature h4 {
   float: left;
-  width: 370px;
+  width: 300px;
 }
 .feature p {
+  float: left;
   color: #595959;
   width: 300px;
 }

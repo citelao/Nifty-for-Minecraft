@@ -86,11 +86,6 @@ h4 {
 			display: inline-block;
 			margin: 2px;
 			padding: 10px;
-			
-			&:first-child {
-				border-right: 1px solid black;
-				padding-right: 15px;
-			}
 		}
 	}
 
@@ -105,6 +100,18 @@ h4 {
 			float: left;
 		}
 		
+			&:nth-child(even) {
+				img,
+				h4,
+				p {
+					float: right;
+				}
+								
+				.info {
+					text-align: right;
+				}
+			}
+		
 		.info {
 			width: 370px;
 			float: left;
@@ -112,10 +119,11 @@ h4 {
 			
 			h4 {
 				float: left;
-				width: 370px;
+				width: 300px;
 			}
 			
 			p {
+				float: left;
 				color: #595959;
 				width: 300px;
 			}
