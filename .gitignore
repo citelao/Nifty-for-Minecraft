@@ -1,1 +1,15 @@
 .DS_Store
+banned-ips.txt
+banned-players.txt
+bukkit.yml
+config.cfg
+craftbukkit.jar
+ops.txt
+permissions.yml
+plugins.cfg
+server.log
+server.log.lck
+server.properties
+white-list.txt
+world-bukkit*
+world-vanilla*

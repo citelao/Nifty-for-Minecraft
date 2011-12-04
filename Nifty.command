@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #	Nifty, a command-line launcher for CraftBukkit Minecraft Server
-#	Copyleft � 2011 Citelao
+#	Copyleft © 2011 Citelao
 
 #	All modification, redistribution, and access is allowed so long as these three rules are followed:
 #		1. Credit for initial program stays with me, in source code.
@@ -346,7 +346,7 @@ fi
     nf_launch_server() {
 	# if [ $gui == "crafty" ]; then #use crafty
 	   # java -Xmx1024M -Xms1024M -jar crafty.jar -w world-bukkit    
-	elif [ $gui == "bukkit" ]; then #use terminal bukkit
+	if [ $gui == "bukkit" ]; then #use terminal bukkit
 	    java -Xmx1024M -Xms1024M -jar craftbukkit.jar -w world-bukkit
 	elif [ $gui == "vanilla" ]; then #use minecraft_server    
 	    #the -w command for bukkit changes server.properties so we just manually change it here.
