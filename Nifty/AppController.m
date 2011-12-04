@@ -7,10 +7,7 @@
 //
 
 #import "AppController.h"
-<<<<<<< HEAD
-=======
 #import "RegexKitLite.h"
->>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 
 @implementation AppController
 
@@ -23,18 +20,11 @@
         stdi = [stdiPipe fileHandleForWriting];
         NSPipe *stdoPipe = [[NSPipe alloc] init];
         stdo = [stdoPipe fileHandleForReading];
-<<<<<<< HEAD
-        NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
-                         @"-Xmx1024M",
-                         @"-jar",
-                         @"minecraft_server.jar",
-=======
         NSString *serverType = @"bukkit.jar";
         NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
                          @"-Xmx1024M",
                          @"-jar",
                          serverType,
->>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
                          @"nogui",
                          nil];
         
@@ -58,17 +48,6 @@
     return self;
 }
 
-<<<<<<< HEAD
-- (void)handleCommandOutput: (NSNotification *)aNotification
-{
-	if([server isRunning] == YES) {
-		NSFileHandle *fh = [aNotification object];
-		NSData *data = [fh availableData];
-		NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-		[fh waitForDataInBackgroundAndNotify];
-		NSLog(@"Notification: %@",str);
-		[[[debugCommandOutput textStorage] mutableString] appendString: str];
-=======
 - (void)handleCommandOutput:(NSNotification *)aNotification
 {
 	if([server isRunning] == YES) {
@@ -86,29 +65,20 @@
         
 		[[[debugCommandOutput textStorage] mutableString] appendString: parsedData];
         [debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
->>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 	} else {
 		NSLog(@"Server stopped.");
 	}
 	
 }
 
-<<<<<<< HEAD
-- (IBAction)handleCommandInput: (id)sender
-=======
 - (IBAction)handleCommandInput:(id)sender
->>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 {
     [self handleCommandInput:sender 
                    withInput:[sender stringValue]];
 	[sender setStringValue:@""];
 }
 
-<<<<<<< HEAD
-- (void)handleCommandInput: (id)sender withInput: (NSString *)data 
-=======
 - (void)handleCommandInput:(id)sender withInput:(NSString *)data 
->>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 {
     NSLog(@"Sending '%@'", data);
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
