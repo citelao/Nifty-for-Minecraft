@@ -1,0 +1,26 @@
+#Hello!#
+
+You're looking at **version 1.1.5** of Nifty for Minecraft! It's the local Minecraft server for everyone!
+
+##Installation##
+
+Just double-click `Nifty.command` to start.
+
+**Trouble?**
+
+If Nifty "has invalid permissions" or something:
+
+1. Try running Executifier.
+2. If that doesn't work, open up Terminal and type in `chmod 775`–– **DO NOT PRESS ENTER**
+3. Then drag Nifty into the Terminal. It should look something like this:
+
+		chmod 775 /Applications/Nifty/Nifty.command
+
+4. Now press the Enter key on your keyboard.
+5. You can quit terminal.
+
+##BTWs##
+
+I'm in the process of developing a native app for Nifty! You can see it in the `dev` branch!
+
+-- Citelao
