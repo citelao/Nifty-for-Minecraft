@@ -7,6 +7,10 @@
 //
 
 #import "AppController.h"
+<<<<<<< HEAD
+=======
+#import "RegexKitLite.h"
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 
 @implementation AppController
 
@@ -19,10 +23,18 @@
         stdi = [stdiPipe fileHandleForWriting];
         NSPipe *stdoPipe = [[NSPipe alloc] init];
         stdo = [stdoPipe fileHandleForReading];
+<<<<<<< HEAD
         NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
                          @"-Xmx1024M",
                          @"-jar",
                          @"minecraft_server.jar",
+=======
+        NSString *serverType = @"bukkit.jar";
+        NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
+                         @"-Xmx1024M",
+                         @"-jar",
+                         serverType,
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
                          @"nogui",
                          nil];
         
@@ -46,6 +58,7 @@
     return self;
 }
 
+<<<<<<< HEAD
 - (void)handleCommandOutput: (NSNotification *)aNotification
 {
 	if([server isRunning] == YES) {
@@ -55,20 +68,47 @@
 		[fh waitForDataInBackgroundAndNotify];
 		NSLog(@"Notification: %@",str);
 		[[[debugCommandOutput textStorage] mutableString] appendString: str];
+=======
+- (void)handleCommandOutput:(NSNotification *)aNotification
+{
+	if([server isRunning] == YES) {
+        //Prepare data string
+		NSFileHandle *handleNotif = [aNotification object];
+		NSData *data = [handleNotif availableData];
+		NSString *unparsedData = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+		[handleNotif waitForDataInBackgroundAndNotify];
+        
+        //Parse data with stringReplace
+        NSString *regEx = @"(>[\n\r]*)([0-9:]*) *([\\[A-Z\\]]*) *([0-9A-Za-z<>. *:!]*)";
+        NSString *parsedData = [[unparsedData stringByReplacingOccurrencesOfRegex:regEx withString:@"$4 $2"] stringByReplacingOccurrencesOfString:@"[0m" withString:@""];
+        //NSString *parsedData = unparsedData;
+        //NSLog(@"Notification: %@",str);
+        
+		[[[debugCommandOutput textStorage] mutableString] appendString: parsedData];
+        [debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 	} else {
 		NSLog(@"Server stopped.");
 	}
 	
 }
 
+<<<<<<< HEAD
 - (IBAction)handleCommandInput: (id)sender
+=======
+- (IBAction)handleCommandInput:(id)sender
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 {
     [self handleCommandInput:sender 
                    withInput:[sender stringValue]];
 	[sender setStringValue:@""];
 }
 
+<<<<<<< HEAD
 - (void)handleCommandInput: (id)sender withInput: (NSString *)data 
+=======
+- (void)handleCommandInput:(id)sender withInput:(NSString *)data 
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 {
     NSLog(@"Sending '%@'", data);
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];

@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
+=======
+		8412254A148AF22D00E9F9DE /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 84122549148AF22D00E9F9DE /* RegexKitLite.m */; };
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 		841E99C41483115100A27E1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841E99C31483115100A27E1F /* Cocoa.framework */; };
 		841E99CE1483115100A27E1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841E99CC1483115100A27E1F /* InfoPlist.strings */; };
 		841E99D01483115100A27E1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99CF1483115100A27E1F /* main.m */; };
 		841E99D41483115100A27E1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D21483115100A27E1F /* Credits.rtf */; };
 		841E99D71483115100A27E1F /* NiftyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99D61483115100A27E1F /* NiftyAppDelegate.m */; };
+<<<<<<< HEAD
 		841E99DA1483115100A27E1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D81483115100A27E1F /* MainMenu.xib */; };
 		841E99E2148313F200A27E1F /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99E1148313F200A27E1F /* AppController.m */; };
 		841E99E41483147000A27E1F /* minecraft_server.jar in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E31483147000A27E1F /* minecraft_server.jar */; };
@@ -24,6 +29,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+=======
+		841E99DA1483115100A27E1F /* OldMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D81483115100A27E1F /* OldMainMenu.xib */; };
+		841E99E2148313F200A27E1F /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99E1148313F200A27E1F /* AppController.m */; };
+		841E99E41483147000A27E1F /* minecraft_server.jar in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E31483147000A27E1F /* minecraft_server.jar */; };
+		846BE9DC148AE5D200890E44 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846BE9DA148AE5D200890E44 /* Preferences.xib */; };
+		846BE9DF148AE9AA00890E44 /* bukkit.jar in Resources */ = {isa = PBXBuildFile; fileRef = 846BE9DE148AE9AA00890E44 /* bukkit.jar */; };
+		846BE9E4148AEB0200890E44 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846BE9E2148AEB0200890E44 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		84122548148AF22D00E9F9DE /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		84122549148AF22D00E9F9DE /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 		841E99BF1483115100A27E1F /* Nifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		841E99C31483115100A27E1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		841E99C61483115100A27E1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -36,6 +54,7 @@
 		841E99D31483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		841E99D51483115100A27E1F /* NiftyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NiftyAppDelegate.h; sourceTree = "<group>"; };
 		841E99D61483115100A27E1F /* NiftyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NiftyAppDelegate.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		841E99D91483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		841E99E0148313F200A27E1F /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		841E99E1148313F200A27E1F /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
@@ -46,6 +65,15 @@
 		841E99E9148317D800A27E1F /* server.log */ = {isa = PBXFileReference; lastKnownFileType = text; name = server.log; path = ../server_files/server.log; sourceTree = "<group>"; };
 		841E99EA148317D800A27E1F /* server.properties */ = {isa = PBXFileReference; lastKnownFileType = text; name = server.properties; path = ../server_files/server.properties; sourceTree = "<group>"; };
 		841E99EB148317D800A27E1F /* white-list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "white-list.txt"; path = "../server_files/white-list.txt"; sourceTree = "<group>"; };
+=======
+		841E99D91483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OldMainMenu.xib; sourceTree = "<group>"; };
+		841E99E0148313F200A27E1F /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		841E99E1148313F200A27E1F /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		841E99E31483147000A27E1F /* minecraft_server.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = minecraft_server.jar; sourceTree = "<group>"; };
+		846BE9DB148AE5D200890E44 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preferences.xib; sourceTree = "<group>"; };
+		846BE9DE148AE9AA00890E44 /* bukkit.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = bukkit.jar; sourceTree = "<group>"; };
+		846BE9E3148AEB0200890E44 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Nifty/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +129,18 @@
 			children = (
 				841E99D51483115100A27E1F /* NiftyAppDelegate.h */,
 				841E99D61483115100A27E1F /* NiftyAppDelegate.m */,
+<<<<<<< HEAD
 				841E99D81483115100A27E1F /* MainMenu.xib */,
 				841E99E0148313F200A27E1F /* AppController.h */,
 				841E99E1148313F200A27E1F /* AppController.m */,
+=======
+				846BE9E2148AEB0200890E44 /* MainMenu.xib */,
+				846BE9DA148AE5D200890E44 /* Preferences.xib */,
+				841E99E0148313F200A27E1F /* AppController.h */,
+				841E99E1148313F200A27E1F /* AppController.m */,
+				84122548148AF22D00E9F9DE /* RegexKitLite.h */,
+				84122549148AF22D00E9F9DE /* RegexKitLite.m */,
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				841E99CA1483115100A27E1F /* Supporting Files */,
 			);
 			path = Nifty;
@@ -112,6 +149,7 @@
 		841E99CA1483115100A27E1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				841E99E6148317D800A27E1F /* banned-ips.txt */,
 				841E99E7148317D800A27E1F /* banned-players.txt */,
 				841E99E8148317D800A27E1F /* ops.txt */,
@@ -119,6 +157,11 @@
 				841E99EA148317D800A27E1F /* server.properties */,
 				841E99EB148317D800A27E1F /* white-list.txt */,
 				841E99E31483147000A27E1F /* minecraft_server.jar */,
+=======
+				841E99D81483115100A27E1F /* OldMainMenu.xib */,
+				841E99E31483147000A27E1F /* minecraft_server.jar */,
+				846BE9DE148AE9AA00890E44 /* bukkit.jar */,
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				841E99CB1483115100A27E1F /* Nifty-Info.plist */,
 				841E99CC1483115100A27E1F /* InfoPlist.strings */,
 				841E99CF1483115100A27E1F /* main.m */,
@@ -153,6 +196,12 @@
 /* Begin PBXProject section */
 		841E99B61483115000A27E1F /* Project object */ = {
 			isa = PBXProject;
+<<<<<<< HEAD
+=======
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			buildConfigurationList = 841E99B91483115000A27E1F /* Build configuration list for PBXProject "Nifty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -176,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				841E99E41483147000A27E1F /* minecraft_server.jar in Resources */,
+<<<<<<< HEAD
 				841E99CE1483115100A27E1F /* InfoPlist.strings in Resources */,
 				841E99D41483115100A27E1F /* Credits.rtf in Resources */,
 				841E99DA1483115100A27E1F /* MainMenu.xib in Resources */,
@@ -185,6 +235,14 @@
 				841E99EF148318CD00A27E1F /* server.log in Resources */,
 				841E99F0148318CD00A27E1F /* server.properties in Resources */,
 				841E99F1148318CD00A27E1F /* white-list.txt in Resources */,
+=======
+				846BE9DF148AE9AA00890E44 /* bukkit.jar in Resources */,
+				841E99CE1483115100A27E1F /* InfoPlist.strings in Resources */,
+				841E99D41483115100A27E1F /* Credits.rtf in Resources */,
+				841E99DA1483115100A27E1F /* OldMainMenu.xib in Resources */,
+				846BE9DC148AE5D200890E44 /* Preferences.xib in Resources */,
+				846BE9E4148AEB0200890E44 /* MainMenu.xib in Resources */,
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +256,10 @@
 				841E99D01483115100A27E1F /* main.m in Sources */,
 				841E99D71483115100A27E1F /* NiftyAppDelegate.m in Sources */,
 				841E99E2148313F200A27E1F /* AppController.m in Sources */,
+<<<<<<< HEAD
+=======
+				8412254A148AF22D00E9F9DE /* RegexKitLite.m in Sources */,
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,12 +282,37 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		841E99D81483115100A27E1F /* MainMenu.xib */ = {
+=======
+		841E99D81483115100A27E1F /* OldMainMenu.xib */ = {
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			isa = PBXVariantGroup;
 			children = (
 				841E99D91483115100A27E1F /* en */,
 			);
+<<<<<<< HEAD
 			name = MainMenu.xib;
+=======
+			name = OldMainMenu.xib;
+			sourceTree = "<group>";
+		};
+		846BE9DA148AE5D200890E44 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				846BE9DB148AE5D200890E44 /* en */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		846BE9E2148AEB0200890E44 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				846BE9E3148AEB0200890E44 /* en */,
+			);
+			name = MainMenu.xib;
+			path = ..;
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -235,7 +322,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+<<<<<<< HEAD
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+=======
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -251,9 +342,15 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			};
 			name = Debug;
 		};
@@ -261,7 +358,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+<<<<<<< HEAD
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+=======
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -271,8 +372,13 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx10.6;
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 			};
 			name = Release;
 		};
@@ -284,6 +390,10 @@
 				GCC_PREFIX_HEADER = "Nifty/Nifty-Prefix.pch";
 				INFOPLIST_FILE = "Nifty/Nifty-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+<<<<<<< HEAD
+=======
+				OTHER_LDFLAGS = "-licucore";
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = app;
@@ -296,6 +406,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Nifty/Nifty-Prefix.pch";
 				INFOPLIST_FILE = "Nifty/Nifty-Info.plist";
+<<<<<<< HEAD
+=======
+				OTHER_LDFLAGS = "-licucore";
+>>>>>>> parent of 7779355... Transfered old Nifty site. Prepare for upload.
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
