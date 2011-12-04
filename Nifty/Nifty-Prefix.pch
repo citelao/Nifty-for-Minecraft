@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Nifty' target in the 'Nifty' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
