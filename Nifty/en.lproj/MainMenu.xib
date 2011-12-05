@@ -427,6 +427,7 @@
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
+				<string key="NSWindowContentMinSize">{535, 410}</string>
 				<object class="NSView" key="NSWindowView" id="573662853">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -434,7 +435,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSScrollView" id="82907518">
 							<reference key="NSNextResponder" ref="573662853"/>
-							<int key="NSvFlags">256</int>
+							<int key="NSvFlags">278</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSClipView" id="801298802">
@@ -613,7 +614,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSTextField" id="374847695">
 							<reference key="NSNextResponder" ref="573662853"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">294</int>
 							<string key="NSFrame">{{20, 20}, {373, 22}}</string>
 							<reference key="NSSuperview" ref="573662853"/>
 							<reference key="NSWindow"/>
@@ -648,7 +649,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSTextField" id="229791456">
 							<reference key="NSNextResponder" ref="573662853"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">299</int>
 							<string key="NSFrame">{{420, 284}, {203, 17}}</string>
 							<reference key="NSSuperview" ref="573662853"/>
 							<reference key="NSWindow"/>
@@ -678,7 +679,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 						<object class="NSScrollView" id="545288086">
 							<reference key="NSNextResponder" ref="573662853"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">283</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSClipView" id="459483914">
@@ -879,6 +880,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string key="NSReuseIdentifierKey">_NS:2818</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSMinSize">{535, 432}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>

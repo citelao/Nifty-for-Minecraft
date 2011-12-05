@@ -12,7 +12,7 @@
 
 @synthesize window;
 
-- (void)applicationWillTerminate: (NSNotification *)aNotification
+-(void)applicationWillTerminate:(NSNotification *)aNotification
 {
     
 }

@@ -58,9 +58,9 @@
 		[handleNotif waitForDataInBackgroundAndNotify];
         
         //Parse data with stringReplace
-        NSString *regEx = @"(>[\n\r]*)([0-9:]*) *([\\[A-Z\\]]*) *([0-9A-Za-z<>. *:!]*)";
+        NSString *regEx = @"([>][\n\r]*)([0-9:]*) *([\\[A-Z\\]]*) *([0-9A-Za-z<>. *:!]*)";
         NSString *parsedData = [[unparsedData stringByReplacingOccurrencesOfRegex:regEx withString:@"$4 $2"] stringByReplacingOccurrencesOfString:@"[0m" withString:@""];
-        //NSString *parsedData = unparsedData;
+//        NSString *parsedData = unparsedData;
         //NSLog(@"Notification: %@",str);
         
 		[[[debugCommandOutput textStorage] mutableString] appendString: parsedData];
