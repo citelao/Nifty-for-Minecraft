@@ -2,8 +2,8 @@
 //  NiftyAppDelegate.h
 //  Nifty
 //
-//  Created by Stolovitz on 11/27/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Ben Stolovitz on 11/27/11.
+//  Copyright 2011 Ben Stolovitz. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -21,9 +21,8 @@
 @property (assign) IBOutlet NSWindow *window;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
-
 - (void)handleCommandOutput:(NSNotification *)aNotification;
 - (IBAction)handleCommandInput:(id)sender;
-- (void)handleCommandInput:(id)sender withInput:(NSString *)data;
+- (void)handleCommandInputwithInput:(NSString *)data;
 
 @end

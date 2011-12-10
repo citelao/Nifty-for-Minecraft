@@ -2,25 +2,24 @@
 //  NiftyAppDelegate.m
 //  Nifty
 //
-//  Created by Stolovitz on 11/27/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Ben Stolovitz on 11/27/11.
+//  Copyright 2011 Ben Stolovitz. All rights reserved.
 //
 
 #import "NiftyAppDelegate.h"
+#import "RegexKitLite.h"
 
 @implementation NiftyAppDelegate
 
 @synthesize window;
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     
     [[NSApplication sharedApplication] setDelegate:self];
     
     if (self) {
         // usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
-        
         server = [[NSTask alloc] init];
         NSPipe *stdiPipe = [[NSPipe alloc] init];
         NSPipe *stdoPipe = [[NSPipe alloc] init];
@@ -53,11 +52,12 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    [self handleCommandInput:@"" withInput:@"stop"];
+	if (stdi) {
+		[self handleCommandInputwithInput:@"stop"];
+	}
 }
 
-- (void)handleCommandOutput:(NSNotification *)aNotification
-{
+- (void)handleCommandOutput:(NSNotification *)aNotification {
 	if([server isRunning] == YES) {
         //Prepare data string
 		NSFileHandle *handleNotif = [aNotification object];
@@ -69,26 +69,46 @@
         NSMutableArray *dataLines = [[unparsedData componentsSeparatedByString: @"\n"] mutableCopy];
         
         for (id object in dataLines) {
-            if(![object isEqualToString: @""]) {                
-                [[[debugCommandOutput textStorage] mutableString] appendString:object];
-                [debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
-            }
+			NSMutableString *mutableDatum = [NSMutableString stringWithString:object];
+			
+			//Have to constantly make sure the string is not nil or it throws errors.
+			
+			//Check for ending ">"
+			if ( [mutableDatum length] > 0 ) {
+				if ( [[mutableDatum substringFromIndex: [mutableDatum length] - 1 ] isEqualToString: @">"] ) {
+					[mutableDatum setString: [mutableDatum substringToIndex:[mutableDatum length] - 1]];
+				}
+			}
+			
+			//Check for beginning ">"
+			if ( [mutableDatum length] > 0 ) {
+				if( [[mutableDatum substringToIndex: 1 ] isEqualToString: @">"] ) {
+					[mutableDatum setString: [mutableDatum substringFromIndex:1]];
+				}
+			}
+			
+			//Finally check for whitespace. Can't work around the duplicate string :(
+			NSString *finalDatum = [mutableDatum stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			
+			if ( [finalDatum length] > 0 ) {
+				[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
+				[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
+				[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+			}
         }
 	} else {
+		stdi = nil;
 		NSLog(@"Server stopped.");
 	}
 	
 }
 
-- (IBAction)handleCommandInput:(id)sender
-{
-    [self handleCommandInput:sender 
-                   withInput:[sender stringValue]];
+- (IBAction)handleCommandInput:(id)sender {
+    [self handleCommandInputwithInput:[sender stringValue]];
 	[sender setStringValue:@""];
 }
 
-- (void)handleCommandInput:(id)sender withInput:(NSString *)data 
-{
+- (void)handleCommandInputwithInput:(NSString *)data {
     NSLog(@"Sending '%@'", data);
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
     [stdi writeData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
