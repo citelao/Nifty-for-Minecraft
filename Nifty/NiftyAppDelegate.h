@@ -23,6 +23,6 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
 - (void)handleCommandOutput:(NSNotification *)aNotification;
 - (IBAction)handleCommandInput:(id)sender;
-- (void)handleCommandInputwithInput:(NSString *)data;
+- (void)handleCommandInputWithInput:(NSString *)data;
 
 @end

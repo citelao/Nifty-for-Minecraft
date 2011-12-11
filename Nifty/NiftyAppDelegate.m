@@ -53,7 +53,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	if (stdi) {
-		[self handleCommandInputwithInput:@"stop"];
+		[self handleCommandInputWithInput:@"stop"];
 	}
 }
 
@@ -87,6 +87,12 @@
 				}
 			}
 			
+			//Check for [0m
+			[mutableDatum replaceOccurrencesOfString:@"[0m" 
+										  withString:@"" 
+											 options:NSCaseInsensitiveSearch 
+											   range:(NSRange){0, [mutableDatum length]}];
+			
 			//Finally check for whitespace. Can't work around the duplicate string :(
 			NSString *finalDatum = [mutableDatum stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			
@@ -104,14 +110,14 @@
 }
 
 - (IBAction)handleCommandInput:(id)sender {
-    [self handleCommandInputwithInput:[sender stringValue]];
+    [self handleCommandInputWithInput:[sender stringValue]];
 	[sender setStringValue:@""];
 }
 
-- (void)handleCommandInputwithInput:(NSString *)data {
+- (void)handleCommandInputWithInput:(NSString *)data {
     NSLog(@"Sending '%@'", data);
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
-    [stdi writeData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [stdi writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end
