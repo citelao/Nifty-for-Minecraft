@@ -17,6 +17,9 @@
     self = [super init];
     
     [[NSApplication sharedApplication] setDelegate:self];
+	
+	commandHist = [[NSMutableArray alloc] init];
+	lastCommand = [[NSString alloc] init];
     
     if (self) {
         // usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
@@ -58,7 +61,7 @@
 }
 
 - (void)handleCommandOutput:(NSNotification *)aNotification {
-	if([server isRunning] == YES) {
+	if ([server isRunning] == YES) {
         //Prepare data string
 		NSFileHandle *handleNotif = [aNotification object];
 		NSData *data = [handleNotif availableData];
@@ -66,7 +69,8 @@
 		[handleNotif waitForDataInBackgroundAndNotify];
         
         //Split by line
-        NSMutableArray *dataLines = [[unparsedData componentsSeparatedByString: @"\n"] mutableCopy];
+        NSArray *dataLines = [unparsedData componentsSeparatedByString: @"\n"];
+		[unparsedData release];
         
         for (id object in dataLines) {
 			NSMutableString *mutableDatum = [NSMutableString stringWithString:object];
@@ -87,7 +91,13 @@
 				}
 			}
 			
-			//Check for [0m
+			//Check for [35m (terminal bold text)
+			[mutableDatum replaceOccurrencesOfString:@"[35m" 
+										  withString:@"" 
+											 options:NSCaseInsensitiveSearch 
+											   range:(NSRange){0, [mutableDatum length]}];
+			
+			//Check for [0m (terminal normal text)
 			[mutableDatum replaceOccurrencesOfString:@"[0m" 
 										  withString:@"" 
 											 options:NSCaseInsensitiveSearch 
@@ -96,7 +106,16 @@
 			//Finally check for whitespace. Can't work around the duplicate string :(
 			NSString *finalDatum = [mutableDatum stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			
-			if ( [finalDatum length] > 0 ) {
+			//Determine line type (input or action)
+			if ([finalDatum length] > 0) {
+				if ([finalDatum rangeOfString:lastCommand].location == NSNotFound) { 
+					NSLog(@"Action");
+				} else {
+					NSLog(@"Input");
+				}
+			}
+			
+			if ([finalDatum length] > 0) {
 				[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
 				[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
 				[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
@@ -111,11 +130,16 @@
 
 - (IBAction)handleCommandInput:(id)sender {
     [self handleCommandInputWithInput:[sender stringValue]];
+	[commandHist addObject:[sender stringValue]];
 	[sender setStringValue:@""];
 }
 
 - (void)handleCommandInputWithInput:(NSString *)data {
     NSLog(@"Sending '%@'", data);
+	
+	[lastCommand release];
+	lastCommand = data;
+	
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
     [stdi writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
 }

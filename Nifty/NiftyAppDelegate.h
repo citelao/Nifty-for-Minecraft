@@ -13,9 +13,13 @@
     
     IBOutlet NSTableView *commandOutput;
     IBOutlet NSTextView *debugCommandOutput;
+	
     NSTask *server;
     NSFileHandle *stdi;
     NSFileHandle *stdo;
+	
+	NSMutableArray *commandHist;
+	NSString *lastCommand;
 }
 
 @property (assign) IBOutlet NSWindow *window;
