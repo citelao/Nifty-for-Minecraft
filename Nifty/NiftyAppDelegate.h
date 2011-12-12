@@ -19,7 +19,7 @@
     NSFileHandle *stdo;
 	
 	NSMutableArray *commandHist;
-	NSString *lastCommand;
+	NSMutableArray *parsedCommandList;
 }
 
 @property (assign) IBOutlet NSWindow *window;

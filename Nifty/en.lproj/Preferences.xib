@@ -60,7 +60,6 @@
 							<string key="NSFrame">{{38, 20}, {274, 18}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:266</string>
 							<bool key="NSEnabled">YES</bool>
 							<int key="NSNumRows">1</int>

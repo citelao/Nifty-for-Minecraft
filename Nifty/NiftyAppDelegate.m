@@ -19,7 +19,6 @@
     [[NSApplication sharedApplication] setDelegate:self];
 	
 	commandHist = [[NSMutableArray alloc] init];
-	lastCommand = [[NSString alloc] init];
     
     if (self) {
         // usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
@@ -108,7 +107,7 @@
 			
 			//Determine line type (input or action)
 			if ([finalDatum length] > 0) {
-				if ([finalDatum rangeOfString:lastCommand].location == NSNotFound) { 
+				if ([commandHist lastObject] == NULL || [finalDatum rangeOfString:[commandHist lastObject]].location == NSNotFound) { 
 					NSLog(@"Action");
 				} else {
 					NSLog(@"Input");
@@ -136,9 +135,8 @@
 
 - (void)handleCommandInputWithInput:(NSString *)data {
     NSLog(@"Sending '%@'", data);
-	
-	[lastCommand release];
-	lastCommand = data;
+		
+	[commandHist addObject:data];
 	
     [stdi writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
     [stdi writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
