@@ -11,21 +11,29 @@
 @interface NiftyAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
     
+    IBOutlet NSArrayController *commandOutputController;
     IBOutlet NSTableView *commandOutput;
     IBOutlet NSTextView *debugCommandOutput;
+    
+	NSString *serverType;
+	NSString *serverLoc;
 	
     NSTask *server;
     NSFileHandle *stdi;
     NSFileHandle *stdo;
 	
 	NSMutableArray *commandHist;
-	NSMutableArray *parsedCommandList;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSArrayController *commandOutputController;
+@property (assign) IBOutlet NSTableView *commandOutput;
+
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
+
 - (void)handleCommandOutput:(NSNotification *)aNotification;
+
 - (IBAction)handleCommandInput:(id)sender;
 - (void)handleCommandInputWithInput:(NSString *)data;
 
