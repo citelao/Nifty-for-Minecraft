@@ -132,17 +132,24 @@
 		NSString *type;
 		NSString *time;
 		
+		[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
+		[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
+		[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+		
 		//Determine whether this is an action (TRUE) or input (FALSE)
 		if ([commandHist lastObject] == NULL || [finalDatum rangeOfString:[commandHist lastObject]].location == NSNotFound) { 
 			NSArray *capturesArray;
-			capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^(([0-9]{2}:){2}[0-9]{2}) ([\\[\\]A-Z]*) ([A-Za-z0-9 !.<>?-@:]*)"];
+			capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^((?:[0-9]{2}:){2}[0-9]{2})(?: |\\x1b)*(\\[[A-Z]+])(?: |\\x1b)*(\\[[A-Za-z]+])?(?: |\\x1b)*([^\\[\\r\\n]+)"];
 			if( [capturesArray count] == 0 || capturesArray == nil ) {
 				return;
 			}
 			
-			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:1]];
+			NSLog(@"%@", [capturesArray objectAtIndex:0]);
+			NSLog(@"%@", finalDatum);
+			
+			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
 			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:4]];
-			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
+			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
 			time = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:1]];
 		} else {
 			actor = [[NSString alloc] initWithString:@""];
