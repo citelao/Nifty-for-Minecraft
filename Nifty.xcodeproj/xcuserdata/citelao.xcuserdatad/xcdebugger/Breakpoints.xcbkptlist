@@ -2,4 +2,20 @@
 <Bucket
    type = "1"
    version = "1.0">
+   <SymbolicBreakpoints>
+      <AddressBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "*0x00007fff92e2238d">
+         <Locations>
+            <Location
+               shouldBeEnabled = "No"
+               ignoreCount = "0"
+               continueAfterRunningActions = "No"
+               symbolName = "objc_msgSend_vtable14">
+            </Location>
+         </Locations>
+      </AddressBreakpoint>
+   </SymbolicBreakpoints>
 </Bucket>

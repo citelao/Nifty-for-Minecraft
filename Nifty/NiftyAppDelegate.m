@@ -87,66 +87,22 @@
 	[unparsedData release];
 	
 	for (id object in dataLines) {
-		NSMutableString *mutableDatum = [NSMutableString stringWithString:object];
-		
-		//Forgive the multiple checks of mutableDatum length;
-		//Have to constantly make sure the string is not nil or it throws errors.
-		
-		//Check for ending ">"
-		if ( [mutableDatum length] > 0 ) {
-			if ( [[mutableDatum substringFromIndex: [mutableDatum length] - 1 ] isEqualToString: @">"] ) {
-				[mutableDatum setString: [mutableDatum substringToIndex:[mutableDatum length] - 1]];
-			}
-		}
-		
-		//Check for beginning ">"
-		if ( [mutableDatum length] > 0 ) {
-			if( [[mutableDatum substringToIndex: 1 ] isEqualToString: @">"] ) {
-				[mutableDatum setString: [mutableDatum substringFromIndex:1]];
-			}
-		}
-		
-		//Check for [35m (terminal bold text)
-		[mutableDatum replaceOccurrencesOfString:@"[35m" 
-									  withString:@"" 
-										 options:NSCaseInsensitiveSearch 
-										   range:(NSRange){0, [mutableDatum length]}];
-		
-		//Check for [0m (terminal normal text)
-		[mutableDatum replaceOccurrencesOfString:@"[0m" 
-									  withString:@"" 
-										 options:NSCaseInsensitiveSearch 
-										   range:(NSRange){0, [mutableDatum length]}];
-		
-		//Finally check for whitespace. Can't work around the duplicate string :(
-		NSString *finalDatum = [mutableDatum stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		
-		//Check for empty string, again.
-		if ([finalDatum length] == 0) {
-			return;
-		}
-		
-		//Determine line type (input or action)
 		NSString *actor;
 		NSString *command;
 		NSString *type;
 		NSString *time;
-		
-		[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
-		[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
-		[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+		NSString *finalDatum = [self stripRawOutput:object];
+	
+		if( finalDatum == nil || [finalDatum length] == 0)
+			return;
 		
 		//Determine whether this is an action (TRUE) or input (FALSE)
-		if ([commandHist lastObject] == NULL || [finalDatum rangeOfString:[commandHist lastObject]].location == NSNotFound) { 
-			NSArray *capturesArray;
-			capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^((?:[0-9]{2}:){2}[0-9]{2})(?: |\\x1b)*(\\[[A-Z]+])(?: |\\x1b)*([\\[|<][A-Za-z0-9_]+]?>?)?(?: |\\x1b)*([^\\r\\n]+)"];
-			if( [capturesArray count] == 0 || capturesArray == nil ) {
+		if ([commandHist lastObject] == NULL || ![finalDatum isEqualToString: [commandHist lastObject]]) {
+			NSArray *capturesArray = [self stripByRegex:finalDatum];
+			
+			if( [capturesArray count] == 0 || capturesArray == nil )
 				return;
-			}
-			
-//			NSLog(@"%@", [capturesArray objectAtIndex:0]);
-//			NSLog(@"%@", finalDatum);
-			
+				
 			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
 			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:4]];
 			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
@@ -155,13 +111,17 @@
 			actor = [[NSString alloc] initWithString:@""];
 			command = [[NSString alloc] initWithString:finalDatum];
 			type = [[NSString alloc] initWithString:@""];
-			time = [[NSString alloc] initWithString:@""];       
+			time = [[NSString alloc] initWithString:@""];
 		}
 		
+		//Debug
+		[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
+		[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
+		[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+
 		//Create row
-		if( !actor || !command || !type || !time ) {
+		if( !actor || !command || !type || !time )
 			return;
-		}
 		
 		NSMutableDictionary *row = [[NSMutableDictionary alloc] init];
 		[row setObject:actor forKey:@"actor"];
@@ -183,7 +143,100 @@
 	} //end for
 }
 
+- (NSString *)stripRawOutput:(NSString *)rawDatum {
+	NSMutableString *mutableDatum = [NSMutableString stringWithString:rawDatum];
+	
+	//Forgive the multiple checks of mutableDatum length;
+	//Have to constantly make sure the string is not nil or it throws errors.
+	
+	//Check for ending ">"
+	if ( [mutableDatum length] > 0 ) {
+		if ( [[mutableDatum substringFromIndex: [mutableDatum length] - 1 ] isEqualToString: @">"] ) {
+			[mutableDatum setString: [mutableDatum substringToIndex:[mutableDatum length] - 1]];
+		}
+	}
+	
+	//Check for beginning ">"
+	if ( [mutableDatum length] > 0 ) {
+		if( [[mutableDatum substringToIndex: 1 ] isEqualToString: @">"] ) {
+			[mutableDatum setString: [mutableDatum substringFromIndex:1]];
+		}
+	}
+	
+	//Check for [35m (terminal bold text)
+	[mutableDatum replaceOccurrencesOfString:@"[35m" 
+								  withString:@"" 
+									 options:NSCaseInsensitiveSearch 
+									   range:(NSRange){0, [mutableDatum length]}];
+	
+	//Check for [0m (terminal normal text)
+	[mutableDatum replaceOccurrencesOfString:@"[0m" 
+								  withString:@"" 
+									 options:NSCaseInsensitiveSearch 
+									   range:(NSRange){0, [mutableDatum length]}];
+	
+	//Finally check for whitespace. Can't work around the duplicate string :(
+	NSString *finalDatum = [mutableDatum stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	
+	return finalDatum;
+}
+
+- (NSArray *)stripByRegex:(NSString *)finalDatum {
+	/****
+	 * This is the craziest regex ever:
+	 * ^((?:[0-9]{2}:){2}[0-9]{2})(?: |\x1b)*(\[[A-Z]+])(?: |\x1b)*(?:(?:\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\x1b)*([^\r\n]+)
+	 * So I'll walk through it:
+	 ****
+	 
+	 ^((?:[0-9]{2}:){2}[0-9]{2})
+	 Time string, recognizes 88:88:88
+	 `^` matches the beginning of the string, so it doesn't get confused by `88:88:88 [INFO] <acolite246> I keep getting this weird error: 88:88:88 [WARNING] Ohnoes`
+	 `(?:` just means that group isn't captured as a group, ie an objectAtIndex
+	 
+	 (?: |\x1b)*
+	 This is my space string; Bukkit likes throwing in ESC chars, aka `^[` or, in regex, `\x1b`
+	 `(?:` make sure not to capture these as groups
+	 
+	 (\[[A-Z]+])
+	 Matches cmd type [INFO] or [WARNING] or [NOHOPELEFT]
+	 
+	 (?: |\x1b)*
+	 Space string
+	 
+	 (?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?
+	 This matches (if it exists) the speaker, in the format
+	 [Speaker]
+	 Speaker:
+	 <speaker>
+	 and trims the extra.
+	 
+	 `(?:\\[|<|(?=[A-Za-z0-9_]+:))` matches `[`, `<` or a word followed by a `:`; it does not capture the group
+	 `([A-Za-z0-9_]+)` valid name chars
+	 `(?:]|>|:))` matches `]`, `>`, or `:`; does not capture the group.
+	 
+	 (?: |\x1b)*
+	 Space string
+	 
+	 ([^\r\n]+)
+	 Match every other character except line breaks.
+	 
+	 
+	 ****
+	 * This regex took a *long* time. I'm proud of it.
+	 * This regex is effectively 99% of this program, so be good to it
+	 *
+	 * I hope new versions of Bukkit don't break it :)
+	 ****/
+	
+	NSArray *capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^((?:[0-9]{2}:){2}[0-9]{2})(?: |\\x1b)*(\\[[A-Z]+])(?: |\\x1b)*(?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\\x1b)*([^\\r\\n]+)"];
+	
+	return capturesArray;
+}
+
 - (IBAction)handleCommandInput:(id)sender {
+	if([sender stringValue] == nil || [[sender stringValue] length] == 0)
+		return;
+	
     [self handleCommandInputWithInput:[sender stringValue]];
 	[commandHist addObject:[sender stringValue]];
 	[sender setStringValue:@""];

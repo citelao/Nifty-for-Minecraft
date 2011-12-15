@@ -33,6 +33,8 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
 
 - (void)handleCommandOutput:(NSNotification *)aNotification;
+- (NSString *)stripRawOutput:(NSString *)rawDatum;
+- (NSArray *)stripByRegex:(NSString *)finalDatum;
 
 - (IBAction)handleCommandInput:(id)sender;
 - (void)handleCommandInputWithInput:(NSString *)data;
