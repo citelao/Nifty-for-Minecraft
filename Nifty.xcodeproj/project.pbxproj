@@ -13,7 +13,6 @@
 		841E99D01483115100A27E1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99CF1483115100A27E1F /* main.m */; };
 		841E99D41483115100A27E1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D21483115100A27E1F /* Credits.rtf */; };
 		841E99D71483115100A27E1F /* NiftyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E99D61483115100A27E1F /* NiftyAppDelegate.m */; };
-		841E99DA1483115100A27E1F /* OldMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841E99D81483115100A27E1F /* OldMainMenu.xib */; };
 		841E99E41483147000A27E1F /* minecraft_server.jar in Resources */ = {isa = PBXBuildFile; fileRef = 841E99E31483147000A27E1F /* minecraft_server.jar */; };
 		846BE9DC148AE5D200890E44 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846BE9DA148AE5D200890E44 /* Preferences.xib */; };
 		846BE9DF148AE9AA00890E44 /* bukkit.jar in Resources */ = {isa = PBXBuildFile; fileRef = 846BE9DE148AE9AA00890E44 /* bukkit.jar */; };
@@ -35,7 +34,6 @@
 		841E99D31483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		841E99D51483115100A27E1F /* NiftyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NiftyAppDelegate.h; sourceTree = "<group>"; };
 		841E99D61483115100A27E1F /* NiftyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NiftyAppDelegate.m; sourceTree = "<group>"; };
-		841E99D91483115100A27E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OldMainMenu.xib; sourceTree = "<group>"; };
 		841E99E31483147000A27E1F /* minecraft_server.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = minecraft_server.jar; sourceTree = "<group>"; };
 		846BE9DB148AE5D200890E44 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preferences.xib; sourceTree = "<group>"; };
 		846BE9DE148AE9AA00890E44 /* bukkit.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = bukkit.jar; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 		841E99CA1483115100A27E1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				841E99D81483115100A27E1F /* OldMainMenu.xib */,
 				841E99E31483147000A27E1F /* minecraft_server.jar */,
 				846BE9DE148AE9AA00890E44 /* bukkit.jar */,
 				841E99CB1483115100A27E1F /* Nifty-Info.plist */,
@@ -173,7 +170,6 @@
 				846BE9DF148AE9AA00890E44 /* bukkit.jar in Resources */,
 				841E99CE1483115100A27E1F /* InfoPlist.strings in Resources */,
 				841E99D41483115100A27E1F /* Credits.rtf in Resources */,
-				841E99DA1483115100A27E1F /* OldMainMenu.xib in Resources */,
 				846BE9DC148AE5D200890E44 /* Preferences.xib in Resources */,
 				846BE9E4148AEB0200890E44 /* MainMenu.xib in Resources */,
 			);
@@ -209,14 +205,6 @@
 				841E99D31483115100A27E1F /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		841E99D81483115100A27E1F /* OldMainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				841E99D91483115100A27E1F /* en */,
-			);
-			name = OldMainMenu.xib;
 			sourceTree = "<group>";
 		};
 		846BE9DA148AE5D200890E44 /* Preferences.xib */ = {

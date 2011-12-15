@@ -3,8 +3,25 @@
 //  Nifty
 //
 //  Created by Ben Stolovitz on 11/27/11.
-//  Copyright 2011 Ben Stolovitz. All rights reserved.
+//  Copyright 2011 Ben Stolovitz.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//	this software and associated documentation files (the "Software"), to deal in
+//	the Software without restriction, including without limitation the rights to
+//	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+//	of the Software, and to permit persons to whom the Software is furnished to do
+//	so, subject to the following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
 
 #import "NiftyAppDelegate.h"
 #import "RegexKitLite.h"
@@ -22,20 +39,17 @@
 	
 	commandHist = [[NSMutableArray alloc] init];
 	
-	//debug
+	// Dev convinience: these will be modified in preferences later.
     serverType = @"bukkit.jar";
 	serverLoc = @"Nifty.app/Contents/Resources/";
 	
-    if (!self) {
+    if (!self)
 		return false;
-	}
 	
 	// usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
 	server = [[NSTask alloc] init];
-	NSPipe *stdiPipe = [[NSPipe alloc] init];
-	NSPipe *stdoPipe = [[NSPipe alloc] init];
-	stdi = [stdiPipe fileHandleForWriting];
-	stdo = [stdoPipe fileHandleForReading];
+	[server setLaunchPath:@"/usr/bin/java"];
+	[server setCurrentDirectoryPath:serverLoc];
 	
 	NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
 					 @"-Xmx1024M",
@@ -43,10 +57,13 @@
 					 serverType,
 					 @"nogui",
 					 nil];
-
-	[server setLaunchPath:@"/usr/bin/java"];
-	[server setCurrentDirectoryPath:serverLoc];
 	[server setArguments:args];
+	[args release];
+	
+	NSPipe *stdiPipe = [[NSPipe alloc] init];
+	NSPipe *stdoPipe = [[NSPipe alloc] init];
+	stdi = [stdiPipe fileHandleForWriting];
+	stdo = [stdoPipe fileHandleForReading];
 	[server setStandardOutput:stdoPipe];
 	[server setStandardError:stdoPipe];
 	[server setStandardInput:stdiPipe];
@@ -56,15 +73,14 @@
 											 selector:@selector(handleCommandOutput:) 
 												 name:NSFileHandleDataAvailableNotification 
 											   object:stdo];
+	
 	[server launch];
-    
     return self;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-	if (!stdi) {
+	if (!stdi)
 		return;
-	}
 	
 	[self handleCommandInputWithInput:@"stop"];
 }
@@ -103,10 +119,10 @@
 			if( [capturesArray count] == 0 || capturesArray == nil )
 				return;
 				
-			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
-			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:4]];
-			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
-			time = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:1]];
+			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:4]];
+			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:5]];
+			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
+			time = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
 		} else {
 			actor = [[NSString alloc] initWithString:@""];
 			command = [[NSString alloc] initWithString:finalDatum];
@@ -114,10 +130,12 @@
 			time = [[NSString alloc] initWithString:@""];
 		}
 		
+		/*
 		//Debug
 		[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
 		[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
 		[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+		 */
 
 		//Create row
 		if( !actor || !command || !type || !time )
@@ -184,21 +202,21 @@
 - (NSArray *)stripByRegex:(NSString *)finalDatum {
 	/****
 	 * This is the craziest regex ever:
-	 * ^((?:[0-9]{2}:){2}[0-9]{2})(?: |\x1b)*(\[[A-Z]+])(?: |\x1b)*(?:(?:\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\x1b)*([^\r\n]+)
+	 * ^(([0-9]{2}:[0-9]{2}):[0-9]{2})(?: |\x1b)*((?:\[)[A-Z]+(?:]))(?: |\x1b)*(?:(?:\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\x1b)*([^\r\n]+)
 	 * So I'll walk through it:
 	 ****
 	 
-	 ^((?:[0-9]{2}:){2}[0-9]{2})
-	 Time string, recognizes 88:88:88
+	 ^(([0-9]{2}:[0-9]{2}):[0-9]{2})
+	 Time string, recognizes 88:88:88 *and* 88:88
 	 `^` matches the beginning of the string, so it doesn't get confused by `88:88:88 [INFO] <acolite246> I keep getting this weird error: 88:88:88 [WARNING] Ohnoes`
-	 `(?:` just means that group isn't captured as a group, ie an objectAtIndex
 	 
 	 (?: |\x1b)*
 	 This is my space string; Bukkit likes throwing in ESC chars, aka `^[` or, in regex, `\x1b`
 	 `(?:` make sure not to capture these as groups
 	 
-	 (\[[A-Z]+])
+	 ((?:\[)[A-Z]+(?:]))
 	 Matches cmd type [INFO] or [WARNING] or [NOHOPELEFT]
+	 Removes brackets
 	 
 	 (?: |\x1b)*
 	 Space string
@@ -228,7 +246,7 @@
 	 * I hope new versions of Bukkit don't break it :)
 	 ****/
 	
-	NSArray *capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^((?:[0-9]{2}:){2}[0-9]{2})(?: |\\x1b)*(\\[[A-Z]+])(?: |\\x1b)*(?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\\x1b)*([^\\r\\n]+)"];
+	NSArray *capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^(([0-9]{2}:[0-9]{2}):[0-9]{2})(?: |\\x1b)*(?:(?:\\[)([A-Z]+)(?:]))(?: |\\x1b)*(?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\\x1b)*([^\\r\\n]+)"];
 	
 	return capturesArray;
 }
