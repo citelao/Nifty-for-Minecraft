@@ -34,8 +34,10 @@
 
 - (id)init {
     self = [super init];
-    
     [[NSApplication sharedApplication] setDelegate:self];
+	
+	if (!self)
+		return false;
 	
 	commandHist = [[NSMutableArray alloc] init];
 	
@@ -43,15 +45,13 @@
     serverType = @"bukkit.jar";
 	serverLoc = @"Nifty.app/Contents/Resources/";
 	
-    if (!self)
-		return false;
-	
 	// usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
 	server = [[NSTask alloc] init];
 	[server setLaunchPath:@"/usr/bin/java"];
 	[server setCurrentDirectoryPath:serverLoc];
 	
-	NSArray *args = [NSArray arrayWithObjects: @"-Xms1024M",
+	NSArray *args = [NSArray arrayWithObjects: 
+					 @"-Xms1024M",
 					 @"-Xmx1024M",
 					 @"-jar",
 					 serverType,
@@ -94,25 +94,27 @@
 	
 	//Prepare data string
 	NSFileHandle *handleNotif = [aNotification object];
-	NSData *data = [handleNotif availableData];
-	NSString *unparsedData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	NSString *unparsedData = [[NSString alloc] initWithData:[handleNotif availableData] encoding:NSUTF8StringEncoding];
 	[handleNotif waitForDataInBackgroundAndNotify];
 	
 	//Split by line
 	NSArray *dataLines = [unparsedData componentsSeparatedByString: @"\n"];
 	[unparsedData release];
 	
+	//TODO should I release handleNotif?
+	
 	for (id object in dataLines) {
+		NSString *finalDatum = [self stripRawOutput:object];
+		
+		if( finalDatum == nil || [finalDatum length] == 0)
+			return;
+		
 		NSString *actor;
 		NSString *command;
 		NSString *type;
 		NSString *time;
 		NSColor *color;
 		NSNumber *bold;
-		NSString *finalDatum = [self stripRawOutput:object];
-	
-		if( finalDatum == nil || [finalDatum length] == 0)
-			return;
 		
 		//Determine whether this is an action (TRUE) or input (FALSE)
 		if ([commandHist lastObject] == NULL || ![finalDatum isEqualToString: [commandHist lastObject]]) {
@@ -120,37 +122,50 @@
 			
 			if( [capturesArray count] == 0 || capturesArray == nil )
 				return;
-				
-			actor = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:4]];
-			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:5]];
-			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
-			time = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
-			bold = [NSNumber numberWithBool: NO];
+			
+			NSArray *outputArray = [capturesArray objectAtIndex:0];
+			
+			actor =		[[NSString alloc] initWithString:[outputArray objectAtIndex:4]];
+			command =	[[NSString alloc] initWithString:[outputArray objectAtIndex:5]];
+			type =		[[NSString alloc] initWithString:[outputArray objectAtIndex:3]];
+			time =		[[NSString alloc] initWithString:[outputArray objectAtIndex:2]];
+			bold =		[NSNumber numberWithBool: NO];
 			
 			//Choose a row color:
 			if( [type isEqualToString:@"INFO"] ) {
-				color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:0 alpha:1.0];
+				color = [NSColor colorWithDeviceHue:1.0 
+										 saturation:1.0 
+										 brightness:0 
+											  alpha:1.0]; //black
 			} else {
-				color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:1.0 alpha:1.0];
+				color = [NSColor colorWithDeviceHue:1.0 
+										 saturation:1.0 
+										 brightness:1.0 
+											  alpha:1.0]; //red
 			}
 		} else {
-			actor = [[NSString alloc] initWithString:@""];
-			command = [[NSString alloc] initWithString:finalDatum];
-			type = [[NSString alloc] initWithString:@""];
-			time = [[NSString alloc] initWithString:@""];
-			color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:0 alpha:1.0];
-			bold = [NSNumber numberWithBool: TRUE];
+			actor =		[[NSString alloc] initWithString:@""];
+			command =	[[NSString alloc] initWithString:finalDatum];
+			type =		[[NSString alloc] initWithString:@""];
+			time =		[[NSString alloc] initWithString:@""];
+			bold =		[NSNumber numberWithBool: TRUE];
+			color =		[NSColor colorWithDeviceHue:1.0 
+										 saturation:1.0 
+										 brightness:0 
+											  alpha:1.0]; //black
 		}
 		
 		/*
+		 
 		//Debug
 		[[[debugCommandOutput textStorage] mutableString] appendString:finalDatum];
 		[[[debugCommandOutput textStorage] mutableString] appendString:@"\r\n"];
 		[debugCommandOutput scrollRangeToVisible: NSMakeRange ([[debugCommandOutput string] length], 0)];
+		 
 		 */
 
 		//Create row
-		if( !actor || !command || !type || !time )
+		if( !actor || !command || !type || !time || !color || !bold )
 			return;
 		
 		NSMutableDictionary *row = [[NSMutableDictionary alloc] init];
@@ -266,7 +281,7 @@
 }
 
 - (IBAction)handleCommandInput:(id)sender {
-	if([sender stringValue] == nil || [[sender stringValue] length] == 0)
+	if( [sender stringValue] == nil || [[sender stringValue] length] == 0 )
 		return;
 	
     [self handleCommandInputWithInput:[sender stringValue]];
