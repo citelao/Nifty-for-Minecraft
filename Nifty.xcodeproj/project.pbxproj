@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84122548148AF22D00E9F9DE /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
-		84122549148AF22D00E9F9DE /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		84122548148AF22D00E9F9DE /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = Nifty/RegexKitLite.h; sourceTree = "<group>"; };
+		84122549148AF22D00E9F9DE /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = Nifty/RegexKitLite.m; sourceTree = "<group>"; };
 		841E99BF1483115100A27E1F /* Nifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		841E99C31483115100A27E1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		841E99C61483115100A27E1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -72,6 +72,8 @@
 		841E99C21483115100A27E1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84122548148AF22D00E9F9DE /* RegexKitLite.h */,
+				84122549148AF22D00E9F9DE /* RegexKitLite.m */,
 				841E99C31483115100A27E1F /* Cocoa.framework */,
 				841E99C51483115100A27E1F /* Other Frameworks */,
 			);
@@ -95,8 +97,6 @@
 				841E99D61483115100A27E1F /* NiftyAppDelegate.m */,
 				846BE9E2148AEB0200890E44 /* MainMenu.xib */,
 				846BE9DA148AE5D200890E44 /* Preferences.xib */,
-				84122548148AF22D00E9F9DE /* RegexKitLite.h */,
-				84122549148AF22D00E9F9DE /* RegexKitLite.m */,
 				841E99CA1483115100A27E1F /* Supporting Files */,
 			);
 			path = Nifty;

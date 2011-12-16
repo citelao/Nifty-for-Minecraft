@@ -107,6 +107,8 @@
 		NSString *command;
 		NSString *type;
 		NSString *time;
+		NSColor *color;
+		NSNumber *bold;
 		NSString *finalDatum = [self stripRawOutput:object];
 	
 		if( finalDatum == nil || [finalDatum length] == 0)
@@ -123,11 +125,21 @@
 			command = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:5]];
 			type = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:3]];
 			time = [[NSString alloc] initWithString:[[capturesArray objectAtIndex:0] objectAtIndex:2]];
+			bold = [NSNumber numberWithBool: NO];
+			
+			//Choose a row color:
+			if( [type isEqualToString:@"INFO"] ) {
+				color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:0 alpha:1.0];
+			} else {
+				color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:1.0 alpha:1.0];
+			}
 		} else {
 			actor = [[NSString alloc] initWithString:@""];
 			command = [[NSString alloc] initWithString:finalDatum];
 			type = [[NSString alloc] initWithString:@""];
 			time = [[NSString alloc] initWithString:@""];
+			color = [NSColor colorWithDeviceHue:1.0 saturation:1.0 brightness:0 alpha:1.0];
+			bold = [NSNumber numberWithBool: TRUE];
 		}
 		
 		/*
@@ -146,6 +158,8 @@
 		[row setObject:command forKey:@"command"];
 		[row setObject:type forKey:@"type"];
 		[row setObject:time forKey:@"time"];
+		[row setObject:color forKey:@"color"];
+		[row setObject:bold forKey:@"bold"];
 		
 		//Push row to table
 		[commandOutputController addObject:row];
