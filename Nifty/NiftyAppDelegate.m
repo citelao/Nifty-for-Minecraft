@@ -116,6 +116,8 @@
 		NSColor *color;
 		NSNumber *bold;
 		
+		NSLog(@"%@", [commandHist lastObject]);
+		
 		//Determine whether this is an action (TRUE) or input (FALSE)
 		if ([commandHist lastObject] == NULL || ![finalDatum isEqualToString: [commandHist lastObject]]) {
 			NSArray *capturesArray = [self stripByRegex:finalDatum];
