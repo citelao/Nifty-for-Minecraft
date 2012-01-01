@@ -1,7 +1,10 @@
 #!/bin/sh
 
 #	Nifty, a command-line launcher for CraftBukkit Minecraft Server
-#	Copyleft © 2011 Citelao
+#	Copyright © 2011 Ben Stolovitz. Some Rights Reserved.
+
+#	This software is freely available (free as in speech and beer) at nifty.stolovitz.com
+#	It is a github repository. Links available from the site.
 
 #	All modification, redistribution, and access is allowed so long as these three rules are followed:
 #		1. Credit for initial program stays with me, in source code.
@@ -9,10 +12,12 @@
 #		3. You share alike.
 
 
+#go to the correct directory.
 cd -P -- "$(dirname -- "$0")" && pwd -P
+
 clear
 echo "\033[1m###########################################"
-echo "# Nifty v 1.1.6"
+echo "# Nifty v 1.1.7"
 echo "# by Citelao"
 echo "#"
 echo "# with auto-update, backup, and Essentials"
@@ -20,14 +25,14 @@ echo "###########################################"
 echo ""
 echo "\033[0m"
 
-#CONTENTS
-    # i. Wish List
-    # 1. Initial setup
-    # 2. Load config.cfg
-    # 3. Actions init
-    # 4. Server init
-    # 5. Main menu exec
-    # 6. Server exec
+# Table of Contents
+# 	i. Wish List
+# 	1. Initial setup
+# 	2. Load config.cfg
+# 	3. Actions init
+# 	4. Server init
+# 	5. Main menu exec
+# 	6. Server exec
 
 # i. Wish List
     #TODO implement custom-save backup
@@ -73,43 +78,43 @@ if [ ! -f craftbukkit.jar ]; then  #setup, because if craftbukkit doesn't exist,
 		    echo "" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "#ESSENTIALS by Earth2Me <earth2me.com/>" >> plugins.cfg
-		    echo "	curl -O --progress-bar http://cloud.github.com/downloads/essentials/Essentials/Essentials-2.6.5.zip" >> plugins.cfg
-		    echo "	unzip -j -qq Essentials-2.6.5.zip -d plugins" >> plugins.cfg
-		    echo "	rm Essentials-2.6.5.zip" >> plugins.cfg
+		    echo "	curl -O --progress-bar http://cloud.github.com/downloads/essentials/Essentials/Essentials-2.7.2.zip" >> plugins.cfg
+		    echo "	unzip -j -qq Essentials-2.7.2.zip -d plugins" >> plugins.cfg
+		    echo "	rm Essentials-2.7.2.zip" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "" >> plugins.cfg
 		    echo "#WORLDEDIT by sk89q <sk89q.com/>" >> plugins.cfg
-		    echo "#NOTE: incompatible with Minecraft 1.0.0 as of 12/3/2011" >> plugins.cfg
-		    echo "#	curl -O --progress-bar https://github.com/downloads/sk89q/worldedit/worldedit-4.2.zip" >> plugins.cfg
-		    echo "#	unzip -j -qq worldedit-4.2.zip -d plugins" >> plugins.cfg
-		    echo "#	rm plugins/CHANGELOG.txt" >> plugins.cfg
-		    echo "#	rm plugins/LICENSE.txt" >> plugins.cfg
-		    echo "#	rm plugins/NOTICE.txt" >> plugins.cfg
-		    echo "#	rm plugins/README.txt" >> plugins.cfg
+		    echo "	curl -O --progress-bar http://cloud.github.com/downloads/sk89q/worldedit/worldedit-5.0.zip" >> plugins.cfg
+		    echo "	unzip -j -qq worldedit-5.0.zip -d plugins" >> plugins.cfg
+		    echo "	rm worldedit-5.0.zip" >> plugins.cfg
+		    echo "	rm plugins/CHANGELOG.txt" >> plugins.cfg
+		    echo "	rm plugins/LICENSE.txt" >> plugins.cfg
+		    echo "	rm plugins/NOTICE.txt" >> plugins.cfg
+		    echo "	rm plugins/README.txt" >> plugins.cfg
+		    echo "	rm plugins/SUBMITTING.txt" >> plugins.cfg
 	    }
 
     #write to files
 	nf_generate
-    #download
-	#craftbukkit.jar
-	    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/1465/artifact/target/craftbukkit-1.0.0-SNAPSHOT.jar
-	    mv craftbukkit-1.0.0-SNAPSHOT.jar craftbukkit.jar
-	#minecraft_server.jar
-	    curl -O --progress-bar https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar
-	#crafty (because it's so beast)
-	    #curl -O --progress-bar http://dl.dropbox.com/u/17925907/Minecraft/Crafty/Crafty-v0.7.zip
-	    #unzip -qq Crafty-v0.7.zip
-	    #rm crafty.bat
-	    #rm Crafty-v0.7.zip
-	#plugins
-	    . plugins.cfg #just executes plugins.cfg. Dandy, eh?
+	
+	nf_download() {
+		#craftbukkit.jar
+		    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/lastBuild/artifact/target/craftbukkit-1.0.1-R2-SNAPSHOT.jar
+		    mv craftbukkit-1.0.1-R2-SNAPSHOT.jar craftbukkit.jar
+		#minecraft_server.jar
+		    curl -O --progress-bar https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar
+		#plugins
+		    . plugins.cfg #just executes plugins.cfg. Dandy, eh?	
+	}
+	
+	nf_download
 fi
 
 # 2. Load config.cfg
     if [ -f config.cfg ]; then
-	. config.cfg
+		. config.cfg
     else
-	gui=crafty
+		gui=bukkit
     fi
     
 # 3. Actions init
@@ -126,7 +131,7 @@ fi
 	}
 	
 	nf_restore() {
-	   echo ""
+		echo ""
 	    echo ""
 	    echo "Restoring..."
 	    
@@ -134,7 +139,7 @@ fi
 	    echo ""
 	    echo "\033[1mWhat would you like to restore?\033[0m"
 	    echo " 1  Autosave"
-	    #echo " 2  Custom save" TODO
+	#	echo " 2  Custom save" TODO
 	    echo " 2  Backend"
 	    echo "[3] Nothing"
 	    echo ""
@@ -142,11 +147,11 @@ fi
 	    read -p "What do you want to restore? " restore
 	   
 	    if [ $restore == 1 ]; then #restore autosave
-		nf_restore_autosave
-	    #elif [ $restore == 2 ]; then #restore customsave
-	    #	nf_restore_save
+			nf_restore_autosave
+	#	elif [ $restore == 2 ]; then #restore customsave
+	#		nf_restore_save
 	    elif [ $restore == 2 ]; then #restore backend
-		nf_restore_backend
+			nf_restore_backend
 	    fi
 	}
 	
@@ -167,19 +172,19 @@ fi
 		echo "Restore completed."
 	    }
 	    
-	    #nf_restore_save() { #TODO
-		#    echo ""
-		#    echo ""
-		#    
-		#    if [ "$(ls -A world-backups)" ]; then #not empty
-		#	echo "Choose a file:"
-		#	ls -@ -1 backups
-		#	
-		#	echo "\033[1mTODO:\033[0m Sorry, pallies"
-		#    else
-		#	echo "\033[1mNo backups in backups/ directory.\033[0m"
-		#    fi
-	    #}
+	#	nf_restore_save() { #TODO
+	#		echo ""
+	#		echo ""
+	#		
+	#		if [ "$(ls -A world-backups)" ]; then #not empty
+	#			echo "Choose a file:"
+	#			ls -@ -1 backups
+	#		
+	#			echo "\033[1mTODO:\033[0m Sorry, pallies"
+	#		else
+	#			echo "\033[1mNo backups in backups/ directory.\033[0m"
+	#		fi
+	#	}
 	    
 	    nf_restore_backend() {
 		#swap plugins
@@ -198,7 +203,6 @@ fi
 		    mv minecraft_server.jar minecraft_server.jar.temp
 		    mv minecraft_server.jar.backup minecraft_server.jar
 		    mv minecraft_server.jar.temp minecraft_server.jar.backup
-		#CRAFTY DOES NOT LIVE UPDATE SO NO NEED
 	    }
 	
 	nf_update() {
@@ -215,15 +219,8 @@ fi
 		
 		rm -f -d plugins-backup/*
 		mv -f plugins/* plugins-backup
-	    #download
-		#craftbukkit.jar
-		    curl -O --progress-bar http://ci.bukkit.org/job/dev-CraftBukkit/promotion/latest/Recommended/artifact/target/craftbukkit-0.0.1-SNAPSHOT.jar
-		    mv craftbukkit-0.0.1-SNAPSHOT.jar craftbukkit.jar
-		#minecraft_server.jar
-		    curl -O --progress-bar http://www.minecraft.net/download/minecraft_server.jar
-		#CRAFTY DOES NOT LIVE UPDATE SO NO NEED
-		#plugins
-		    . plugins.cfg
+	    
+	    nf_download
 	}
 	
 	nf_backup() {
@@ -240,8 +237,10 @@ fi
 		mkdir -p world-backups/$year/$month/$day/$clock
 		
 		cp -r world-bukkit world-backups/$year/$month/$day/$clock
+		cp -r world-bukkit_nether world-backups/$year/$month/$day/$clock
+		cp -r world-bukkit_the_end world-backups/$year/$month/$day/$clock
 		cp -r world-bukkit-autosave world-backups/$year/$month/$day/$clock
-		cp -r world-vanilla world-ackups/$year/$month/$day/$clock
+		cp -r world-vanilla world-backups/$year/$month/$day/$clock
 		cp -r world-vanilla-autosave world-backups/$year/$month/$day/$clock
 	
 	    echo ""
@@ -259,18 +258,18 @@ fi
 	    echo "\033[1mWhat option would you like to change?\033[0m"
 	    echo " 1  Launcher"
 	#   echo " 2  Plugins" #TODO
-	    echo " 2  Regenerate settings.cfg"
+	    echo " 2  Regenerate config.cfg"
 	    echo "[3] None"
 	    echo ""
 	    
 	    read -p "What option would you like to change? " option
 	    
 	    if [ $option == 1 ]; then #change launcher
-		nf_options_launcher
-	    #elif [ $action == 2 ]; then #plugins
-	    #	nf_options_plugins
-            elif [ $option == 2 ]; then #regenerate
-		nf_generate
+			nf_options_launcher
+	#	elif [ $action == 2 ]; then #plugins
+	#	    nf_options_plugins
+        elif [ $option == 2 ]; then #regenerate
+			nf_generate
 	    fi
 
 	}
@@ -281,7 +280,6 @@ fi
 		echo "\033[1mWhich launcher would you like to use?\033[0m"
 		echo " 1  Vanilla"
 		echo " 2  Bukkit"
-		#echo " 3  Crafty"
 		echo "[3] Don't change"
 		echo ""
 		
@@ -291,8 +289,6 @@ fi
 		    nf_options_launcher_vanilla
 		elif [ $launcher == 2 ]; then #bukkit
 		    nf_options_launcher_bukkit
-		#elif [ $launcher == 3 ]; then #crafty
-		#    nf_options_launcher_crafty
 		fi
 	    }
 	    
@@ -303,10 +299,7 @@ fi
 		    #change local
 		    gui=vanilla
 		    #change saved	
-		    sed -i '' -e 's/gui=bukkit/gui=vanilla/g' settings.cfg
-		    sed -i '' -e 's/gui=crafty/gui=vanilla/g' settings.cfg
-		    
-		    sed -i '' -e 's/servType=bukkit/servType=vanilla/g' settings.cfg
+		    sed -i '' -e 's/gui=bukkit/gui=vanilla/g' config.cfg
 		}
 		
 		nf_options_launcher_bukkit() {
@@ -316,44 +309,27 @@ fi
 		    #change local
 		    gui=bukkit
 		    #change saved
-		    sed -i '' -e 's/gui=vanilla/gui=bukkit/g' settings.cfg
-		    sed -i '' -e 's/gui=crafty/gui=bukkit/g' settings.cfg
-		    
-		    sed -i '' -e 's/servType=vanilla/servType=bukkit/g' settings.cfg
-		}
-		
-		nf_options_launcher_crafty() {
-		    echo ""
-		    echo "Using Crafty."
-		    
-		    #change local
-		    gui=crafty
-		    #change saved
-		    sed -i '' -e 's/gui=vanilla/gui=crafty/g' settings.cfg
-		    sed -i '' -e 's/gui=bukkit/gui=crafty/g' settings.cfg
-		    
-		    sed -i '' -e 's/servType=vanilla/servType=bukkit/g' settings.cfg
+		    sed -i '' -e 's/gui=vanilla/gui=bukkit/g' config.cfg
 		}
 	    
-	    #nf_options_plugins() {
-		#TODO
-	    #}
+	#	nf_options_plugins() {
+	#	TODO
+	#	}
 
 # 4. Server init
-    nf_launch_server() {
-	# if [ $gui == "crafty" ]; then #use crafty
-	   # java -Xmx1024M -Xms1024M -jar crafty.jar -w world-bukkit    
+	nf_launch_server() {
 	if [ $gui == "bukkit" ]; then #use terminal bukkit
-	    java -Xmx1024M -Xms1024M -jar craftbukkit.jar -w world-bukkit
+		java -Xmx1024M -Xms1024M -jar craftbukkit.jar -w world-bukkit
 	elif [ $gui == "vanilla" ]; then #use minecraft_server    
-	    #the -w command for bukkit changes server.properties so we just manually change it here.
-	    sed -i '' -e 's/level-name=world-bukkit/level-name=world-vanilla/g' server.properties
-	    sed -i '' -e 's/level-name=(world(?=\b))/level-name=world-vanilla/g' server.properties    
-	    java -Xmx1024M -Xms1024M -jar minecraft_server.jar
+		#the -w command for bukkit changes server.properties so we just manually change it here.
+		sed -i '' -e 's/level-name=world-bukkit/level-name=world-vanilla/g' server.properties
+		sed -i '' -e 's/level-name=(world(?=\b))/level-name=world-vanilla/g' server.properties    
+		java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui
 	else #there's an error with them theayre settings    
-	    echo ""  
-	    echo ""
-	    echo "\033[1mERROR:\033[0m There seems to be something wrong with your settings.cfg. Please regenerate it in the \033[1mOptions\033[0m menu."
+		echo ""  
+		echo ""
+		echo "\033[1mERROR:\033[0m There seems to be something wrong with your config.cfg."
+		echo "Please regenerate it in the \033[1mOptions\033[0m menu."
 	fi
     }
     
@@ -372,18 +348,18 @@ fi
     
     read -p "What do you want to do? " action
     
-    if [ $action == 1 ]; then #start
-	nf_start
+      if [ $action == 1 ]; then #start
+		nf_start
     elif [ $action == 2 ]; then #restore
-	nf_restore
+		nf_restore
     elif [ $action == 3 ]; then #update
-	nf_update
+		nf_update
     elif [ $action == 4 ]; then #backup
-	nf_backup
+		nf_backup
     elif [ $action == 5 ]; then #options
-	nf_options
+		nf_options
     else
-	exit
+		exit
     fi
     
 # 6. Server exec
