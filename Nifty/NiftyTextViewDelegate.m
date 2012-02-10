@@ -45,7 +45,7 @@
 }
 
 - (void)complete:(NSNotification *)aNotification {
-	NSLog(@"%@", aNotification);
+//	NSLog(@"%@", aNotification);
 //	[delegatedField complete:nil];
 }
 

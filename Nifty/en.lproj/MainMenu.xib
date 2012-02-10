@@ -932,7 +932,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 													<reference key="NSTableView" ref="1043331357"/>
 												</object>
 												<object class="NSTableColumn" id="737362518">
-													<double key="NSWidth">223</double>
+													<double key="NSWidth">208</double>
 													<double key="NSMinWidth">40</double>
 													<double key="NSMaxWidth">1000</double>
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1040,7 +1040,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<object class="NSScroller" id="501606903">
 									<reference key="NSNextResponder" ref="877445562"/>
 									<int key="NSvFlags">-2147483392</int>
-									<string key="NSFrame">{{1, 403}, {365, 15}}</string>
+									<string key="NSFrame">{{1, 403}, {371, 15}}</string>
 									<reference key="NSSuperview" ref="877445562"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1004793319"/>
@@ -2343,7 +2343,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">952</int>
+			<int key="maxID">976</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -301,6 +301,7 @@
 				INFOPLIST_FILE = "Nifty/Nifty-Info.plist";
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
