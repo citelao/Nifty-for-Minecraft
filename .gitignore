@@ -8,4 +8,4 @@ build/*
 *.mode1v3
 
 .svn
-
+DerivedData/*

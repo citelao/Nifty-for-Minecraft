@@ -45,7 +45,7 @@
     serverType = @"bukkit.jar";
 	serverLoc = @"Nifty.app/Contents/Resources/";
 	
-	// usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar nogui
+	// usr/bin/java -Xms1024M -Xmx1024M -jar bukkit.jar -nojline
 	server = [[NSTask alloc] init];
 	[server setLaunchPath:@"/usr/bin/java"];
 	[server setCurrentDirectoryPath:serverLoc];
@@ -55,6 +55,7 @@
 					 @"-Xmx1024M",
 					 @"-jar",
 					 serverType,
+					 @"-nojline",
 					 @"nogui",
 					 nil];
 	[server setArguments:args];
@@ -104,10 +105,10 @@
 	//TODO should I release handleNotif?
 	
 	for (id object in dataLines) {
-		NSString *finalDatum = [self stripRawOutput:object];
-		
-		if( finalDatum == nil || [finalDatum length] == 0)
+		if( object == nil || [object length] == 0)
 			return;
+		
+		NSString *strippedObject = [self stripRawOutput:object];
 		
 		NSString *actor;
 		NSString *command;
@@ -117,18 +118,20 @@
 		NSNumber *bold;
 		
 		//Determine whether this is an action (TRUE) or input (FALSE)
-		if ([commandHist lastObject] == NULL || ![finalDatum isEqualToString: [commandHist lastObject]]) {
-			NSArray *capturesArray = [self stripByRegex:finalDatum];
+		if ([commandHist lastObject] == NULL || ![strippedObject isEqualToString: [commandHist lastObject]]) {
+			NSArray *capturesArray = [self stripByRegex:strippedObject];
 			
 			if( [capturesArray count] == 0 || capturesArray == nil )
 				return;
 			
 			NSArray *outputArray = [capturesArray objectAtIndex:0];
 			
-			actor =		[[NSString alloc] initWithString:[outputArray objectAtIndex:4]];
-			command =	[[NSString alloc] initWithString:[outputArray objectAtIndex:5]];
-			type =		[[NSString alloc] initWithString:[outputArray objectAtIndex:3]];
-			time =		[[NSString alloc] initWithString:[outputArray objectAtIndex:2]];
+			NSLog(@"%@", outputArray);
+			
+			actor =		@"";//[[NSString alloc] initWithString:[outputArray objectAtIndex:3]];
+			command =	[[NSString alloc] initWithString:[outputArray objectAtIndex:6]];
+			type =		[[NSString alloc] initWithString:[outputArray objectAtIndex:5]];
+			time =		[[NSString alloc] initWithString:[outputArray objectAtIndex:3]];
 			bold =		[NSNumber numberWithBool: NO];
 			
 			//Choose a row color:
@@ -145,7 +148,7 @@
 			}
 		} else {
 			actor =		[[NSString alloc] initWithString:@""];
-			command =	[[NSString alloc] initWithString:finalDatum];
+			command =	[[NSString alloc] initWithString:object];
 			type =		[[NSString alloc] initWithString:@""];
 			time =		[[NSString alloc] initWithString:@""];
 			bold =		[NSNumber numberWithBool: TRUE];
@@ -153,6 +156,8 @@
 										 saturation:1.0 
 										 brightness:0 
 											  alpha:1.0]; //black
+			
+			NSLog(@"hey");
 		}
 		
 		/*
@@ -199,20 +204,6 @@
 	//Forgive the multiple checks of mutableDatum length;
 	//Have to constantly make sure the string is not nil or it throws errors.
 	
-	//Check for ending ">"
-	if ( [mutableDatum length] > 0 ) {
-		if ( [[mutableDatum substringFromIndex: [mutableDatum length] - 1 ] isEqualToString: @">"] ) {
-			[mutableDatum setString: [mutableDatum substringToIndex:[mutableDatum length] - 1]];
-		}
-	}
-	
-	//Check for beginning ">"
-	if ( [mutableDatum length] > 0 ) {
-		if( [[mutableDatum substringToIndex: 1 ] isEqualToString: @">"] ) {
-			[mutableDatum setString: [mutableDatum substringFromIndex:1]];
-		}
-	}
-	
 	//Check for [35m (terminal bold text)
 	[mutableDatum replaceOccurrencesOfString:@"[35m" 
 								  withString:@"" 
@@ -233,39 +224,20 @@
 
 - (NSArray *)stripByRegex:(NSString *)finalDatum {
 	/****
-	 * This is the craziest regex ever:
-	 * ^(([0-9]{2}:[0-9]{2}):[0-9]{2})(?: |\x1b)*((?:\[)[A-Z]+(?:]))(?: |\x1b)*(?:(?:\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\x1b)*([^\r\n]+)
+	 * This is a crazy regex:
+	 * (\d{4}-\d{2}-\d{2}) ((\d{2}:\d{2}):\d{2}) ((?:\[)([A-Z]+)(?:])) ([^\r\n]+)
 	 * So I'll walk through it:
 	 ****
 	 
-	 ^(([0-9]{2}:[0-9]{2}):[0-9]{2})
-	 Time string, recognizes 88:88:88 *and* 88:88
-	 `^` matches the beginning of the string, so it doesn't get confused by `88:88:88 [INFO] <acolite246> I keep getting this weird error: 88:88:88 [WARNING] Ohnoes`
+	 (\d{4}-\d{2}-\d{2})
+	 Captures yyyy-mm-dd
 	 
-	 (?: |\x1b)*
-	 This is my space string; Bukkit likes throwing in ESC chars, aka `^[` or, in regex, `\x1b`
-	 `(?:` make sure not to capture these as groups
+	 ((\d{2}:\d{2}):\d{2})
+	 Captures hh:mm:ss
 	 
 	 ((?:\[)[A-Z]+(?:]))
 	 Matches cmd type [INFO] or [WARNING] or [NOHOPELEFT]
 	 Removes brackets
-	 
-	 (?: |\x1b)*
-	 Space string
-	 
-	 (?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?
-	 This matches (if it exists) the speaker, in the format
-	 [Speaker]
-	 Speaker:
-	 <speaker>
-	 and trims the extra.
-	 
-	 `(?:\\[|<|(?=[A-Za-z0-9_]+:))` matches `[`, `<` or a word followed by a `:`; it does not capture the group
-	 `([A-Za-z0-9_]+)` valid name chars
-	 `(?:]|>|:))` matches `]`, `>`, or `:`; does not capture the group.
-	 
-	 (?: |\x1b)*
-	 Space string
 	 
 	 ([^\r\n]+)
 	 Match every other character except line breaks.
@@ -278,7 +250,8 @@
 	 * I hope new versions of Bukkit don't break it :)
 	 ****/
 	
-	NSArray *capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"^(([0-9]{2}:[0-9]{2}):[0-9]{2})(?: |\\x1b)*(?:(?:\\[)([A-Z]+)(?:]))(?: |\\x1b)*(?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\\x1b)*([^\\r\\n]+)"];
+	NSArray *capturesArray = [finalDatum arrayOfCaptureComponentsMatchedByRegex:@"(\\d{4}-\\d{2}-\\d{2}) ((\\d{2}:\\d{2}):\\d{2}) ((?:\\[)([A-Z]+)(?:])) ([^\\r\\n]+)"];
+	// jline: @"^(([0-9]{2}:[0-9]{2}):[0-9]{2})(?: |\\x1b)*(?:(?:\\[)([A-Z]+)(?:]))(?: |\\x1b)*(?:(?:\\[|<|(?=[A-Za-z0-9_]+:))([A-Za-z0-9_]+)(?:]|>|:))?(?: |\\x1b)*([^\\r\\n]+)"
 	
 	return capturesArray;
 }
