@@ -1,6 +1,6 @@
 #Hello!#
 
-You're looking at **version 1.1.5** of Nifty for Minecraft! It's the local Minecraft server for everyone!
+You're looking at **version 1.1.7** of Nifty for Minecraft! It's the local Minecraft server for everyone!
 
 ##Installation##
 
